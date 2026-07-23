@@ -1,0 +1,67 @@
+<div class="contenedor">
+
+  <!-- Menú izquierdo -->
+  <div class="sidebar">
+
+    <div class="sidebar-scroll">
+
+      <div class="logo-section">
+        <div class="logo-icon">
+          <img src="https://www.ug.edu.ec/wp-content/uploads/2024/06/logo-vertical.png"
+               alt="Universidad de Guayaquil" />
+        </div>
+
+        <h2>Salud Crónica</h2>
+
+        <p>Sistema Inteligente</p>
+
+        <div class="linea"></div>
+      </div>
+
+      <nav class="menu-links">
+        <a routerLink="/inicio" routerLinkActive="active">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </a>
+
+        <a routerLink="/formulario" routerLinkActive="active">
+          <i class="fas fa-file-medical"></i>
+          <span>Formulario</span>
+        </a>
+
+        <a routerLink="/historial" routerLinkActive="active">
+          <i class="fas fa-clock-rotate-left"></i>
+          <span>Historial</span>
+        </a>
+
+        <a routerLink="/random-forest" routerLinkActive="active">
+          <i class="fas fa-brain"></i>
+          <span>Random Forest</span>
+        </a>
+
+        <a routerLink="/xgboost" routerLinkActive="active">
+          <i class="fas fa-microchip"></i>
+          <span>XGBoost</span>
+        </a>
+
+        <a routerLink="/resul-hibrido" routerLinkActive="active">
+          <i class="fas fa-stethoscope"></i>
+          <span>Resultado Híbrido</span>
+        </a>
+
+        <a routerLink="/acerca-de" routerLinkActive="active">
+          <i class="fas fa-circle-info"></i>
+          <span>Acerca de</span>
+        </a>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <!-- Contenido derecho -->
+  <div class="contenido">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

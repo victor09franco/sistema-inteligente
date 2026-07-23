@@ -1,0 +1,197 @@
+<div class="modelo-container">
+
+  <!-- ══ HERO ══ -->
+  <div class="modelo-hero">
+    <div class="hero-eyebrow">Modelo de Machine Learning · Gradient Boosting</div>
+    <h1 class="hero-titulo">XG<span>Boost</span></h1>
+    <p class="hero-desc">
+      Extreme Gradient Boosting — algoritmo de boosting que construye árboles de forma secuencial,
+      donde cada nuevo árbol corrige los errores del anterior. Elegido como segundo modelo base
+      por su alto Recall en diabetes y su capacidad de capturar patrones complejos que Random Forest
+      puede pasar por alto.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge">⚡ Gradient Boosting</span>
+      <span class="hero-badge">🐍 XGBoost 2.1</span>
+      <span class="hero-badge">🎯 Alto Recall</span>
+      <span class="hero-badge">🛡️ Regularización L1/L2</span>
+    </div>
+  </div>
+
+  <!-- ══ RF vs XGBoost — diferencias clave ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🆚</span> ¿En qué se diferencia de Random Forest?</h2>
+    <div class="diferencias-tabla">
+      <div class="dif-fila dif-header">
+        <span>Característica</span>
+        <span>Random Forest</span>
+        <span>XGBoost</span>
+      </div>
+      <div class="dif-fila">
+        <span>Construcción</span>
+        <span>Árboles en <strong>paralelo</strong></span>
+        <span>Árboles <strong>secuenciales</strong></span>
+      </div>
+      <div class="dif-fila">
+        <span>Estrategia</span>
+        <span>Bagging (promedio)</span>
+        <span>Boosting (corrección)</span>
+      </div>
+      <div class="dif-fila">
+        <span>Velocidad</span>
+        <span>Moderada</span>
+        <span>Alta (C++ optimizado)</span>
+      </div>
+      <div class="dif-fila">
+        <span>Recall diabetes</span>
+        <span class="dif-menor">49.0%</span>
+        <span class="dif-mayor">97.4% ✅</span>
+      </div>
+      <div class="dif-fila">
+        <span>Regularización</span>
+        <span>No integrada</span>
+        <span>L1 + L2 nativas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ¿POR QUÉ FUE ELEGIDO? ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🎯</span> ¿Por qué XGBoost en este sistema?</h2>
+    <div class="ventajas-grid">
+      <div class="ventaja-card" *ngFor="let v of ventajas">
+        <div class="ventaja-ico">{{ v.ico }}</div>
+        <strong>{{ v.titulo }}</strong>
+        <p>{{ v.desc }}</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 20px;">
+      <span class="callout-ico">⚠️</span>
+      <p>
+        En sistemas de salud, <strong>el Recall es la métrica crítica</strong>: preferimos decirle
+        a alguien sano que tiene riesgo (falso positivo) antes que decirle a alguien enfermo que
+        está sano (falso negativo). XGBoost logró <strong>97.4% de Recall en diabetes</strong>,
+        detectando casi todos los casos reales, lo que lo convierte en el modelo con mayor
+        peso en la predicción híbrida.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ PROCESO DE ENTRENAMIENTO ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">⚙️</span> Proceso de entrenamiento</h2>
+    <div class="flujo">
+      <div class="flujo-paso">
+        <div class="flujo-icono">📂</div>
+        <div class="flujo-texto">Dataset<br>limpio</div>
+        <div class="flujo-sub">Encoded<br>imputado</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">⚗️</div>
+        <div class="flujo-texto">SMOTE<br>(Diabetes)</div>
+        <div class="flujo-sub">Balance<br>50/50</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">✂️</div>
+        <div class="flujo-texto">Split<br>80 / 20</div>
+        <div class="flujo-sub">Estratificado</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">⚡</div>
+        <div class="flujo-texto">XGBoost<br>Boosting</div>
+        <div class="flujo-sub">100 rondas<br>lr=0.1</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">📈</div>
+        <div class="flujo-texto">Evaluación</div>
+        <div class="flujo-sub">AUC, Recall<br>F1</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">💾</div>
+        <div class="flujo-texto">Export<br>.pkl</div>
+        <div class="flujo-sub">xgb_diabetes<br>xgb_cardio</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PARÁMETROS ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🔧</span> Hiperparámetros utilizados</h2>
+    <div class="params-grid">
+      <div class="param-item" *ngFor="let p of parametros">
+        <div class="param-nombre">{{ p.nombre }}</div>
+        <div class="param-valor">{{ p.valor }}</div>
+        <div class="param-desc">{{ p.desc }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MÉTRICAS + GRÁFICOS ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">📊</span> Resultados por enfermedad</h2>
+    <div class="tabs-bar">
+      <button class="tab-btn" [class.active]="tabActivo === 'diabetes'"
+        (click)="tabActivo = 'diabetes'">🩸 Diabetes</button>
+      <button class="tab-btn" [class.active]="tabActivo === 'cardiovascular'"
+        (click)="tabActivo = 'cardiovascular'">❤️ Cardiovascular</button>
+    </div>
+
+    <div class="metricas-grid">
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.accuracy }}</div>
+        <div class="metrica-label">Accuracy</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.precision }}</div>
+        <div class="metrica-label">Precision</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card highlight-recall">
+        <div class="metrica-valor">{{ metricasActivas.recall }}</div>
+        <div class="metrica-label">Recall ⭐</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.f1 }}</div>
+        <div class="metrica-label">F1-Score</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.auc }}</div>
+        <div class="metrica-label">AUC-ROC</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+    </div>
+
+    <div class="grafico-wrap" style="margin-bottom: 20px;">
+      <img
+        [src]="tabActivo === 'diabetes'
+          ? 'assets/graficos/fig_evaluacion_diabetes.png'
+          : 'assets/graficos/fig_evaluacion_cardiovascular.png'"
+        [alt]="'Evaluación ' + tabActivo"/>
+      <div class="grafico-caption">
+        Evaluación completa incluyendo matrices de confusión, curvas ROC e importancia de
+        variables para {{ tabActivo }}. La curva ROC de XGBoost aparece en rojo.
+      </div>
+    </div>
+
+    <h3 class="subseccion-titulo">🔍 Importancia de variables (XGBoost)</h3>
+    <div class="importancia-lista">
+      <div class="imp-item" *ngFor="let imp of importanciasActivas">
+        <span class="imp-nombre">{{ imp.nombre }}</span>
+        <div class="imp-barra-wrap">
+          <div class="imp-barra" [style.width.%]="imp.valor * 100"></div>
+        </div>
+        <span class="imp-valor">{{ (imp.valor * 100).toFixed(1) }}%</span>
+      </div>
+    </div>
+  </div>
+
+</div>

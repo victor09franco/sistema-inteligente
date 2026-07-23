@@ -1,0 +1,203 @@
+<div class="modelo-container">
+
+  <!-- ══ HERO ══ -->
+  <div class="modelo-hero">
+    <div class="hero-eyebrow">Resultado Final · Ensemble Híbrido</div>
+    <h1 class="hero-titulo">Resultado <span>Híbrido</span></h1>
+    <p class="hero-desc">
+      El sistema combina las fortalezas de Random Forest y XGBoost en una predicción final
+      ponderada: <strong>40% RF + 60% XGBoost</strong>. Esta fusión compensa las debilidades
+      individuales de cada modelo, logrando mayor equilibrio entre Precision y Recall para
+      una detección de riesgo más confiable en contexto clínico real.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge">🔀 40% RF + 60% XGB</span>
+      <span class="hero-badge">🎯 Umbral 50%</span>
+      <span class="hero-badge">🏥 + Recomendación</span>
+      <span class="hero-badge">🏆 Modelo final</span>
+    </div>
+  </div>
+
+  <!-- ══ FORMULA HÍBRIDA ══ -->
+  <div class="seccion formula-seccion">
+    <h2 class="seccion-titulo"><span class="ico">🔀</span> Fórmula de fusión</h2>
+    <div class="formula-box">
+      <div class="formula-texto">
+        P<sub>híbrida</sub> = <span class="coef rf">0.4</span> × P<sub>RF</sub>
+        + <span class="coef xgb">0.6</span> × P<sub>XGB</sub>
+      </div>
+      <div class="formula-umbral">
+        Si P<sub>híbrida</sub> ≥ <strong>0.50</strong> → <span class="riesgo-tag">⚠️ HAY RIESGO</span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        Si P<sub>híbrida</sub> &lt; <strong>0.50</strong> → <span class="ok-tag">✅ SIN RIESGO</span>
+      </div>
+    </div>
+
+    <div class="pesos-explicacion">
+      <div class="peso-item rf-peso">
+        <div class="peso-num">0.4</div>
+        <div class="peso-modelo">Random Forest</div>
+        <div class="peso-razon">Mayor Precision — reduce falsas alarmas</div>
+      </div>
+      <div class="peso-simbolo">+</div>
+      <div class="peso-item xgb-peso">
+        <div class="peso-num">0.6</div>
+        <div class="peso-modelo">XGBoost</div>
+        <div class="peso-razon">Mayor Recall — detecta más casos reales</div>
+      </div>
+      <div class="peso-simbolo">=</div>
+      <div class="peso-item hib-peso">
+        <div class="peso-num">1.0</div>
+        <div class="peso-modelo">Híbrido</div>
+        <div class="peso-razon">Balance óptimo para diagnóstico clínico</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <span class="callout-ico">💡</span>
+      <p>
+        Se asignó <strong>mayor peso a XGBoost (60%)</strong> porque en medicina es más crítico
+        detectar todos los enfermos (alto Recall) que evitar falsas alarmas. XGBoost obtuvo
+        <strong>97.4% de Recall en diabetes</strong> vs 49% de RF. El 40% de RF aporta Precision
+        y estabilidad para no generar demasiadas alertas innecesarias.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ FLUJO COMPLETO DEL SISTEMA ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🔄</span> Flujo completo del sistema</h2>
+    <div class="pasos-lista">
+      <div class="paso-item" *ngFor="let p of pasos">
+        <div class="paso-num">{{ p.n }}</div>
+        <div class="paso-ico">{{ p.ico }}</div>
+        <div class="paso-info">
+          <strong>{{ p.titulo }}</strong>
+          <span>{{ p.desc }}</span>
+        </div>
+        <div class="paso-linea" *ngIf="p.n !== '06'"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COMPARATIVA DE LOS 3 MODELOS ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">📊</span> Comparativa de los 3 modelos</h2>
+    <div class="tabs-bar">
+      <button class="tab-btn" [class.active]="tabActivo === 'diabetes'"
+        (click)="tabActivo = 'diabetes'">🩸 Diabetes</button>
+      <button class="tab-btn" [class.active]="tabActivo === 'cardiovascular'"
+        (click)="tabActivo = 'cardiovascular'">❤️ Cardiovascular</button>
+    </div>
+
+    <div class="tabla-wrap">
+      <table class="tabla-comp">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-Score</th>
+            <th>AUC-ROC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of comparativaActiva"
+            [class.fila-ganador]="fila.ganador">
+            <td>
+              <span class="badge-modelo" [class.badge-rf]="fila.badge==='rf'"
+                [class.badge-xgb]="fila.badge==='xgb'" [class.badge-hib]="fila.badge==='hib'">
+                {{ fila.badge === 'rf' ? '🌲' : fila.badge === 'xgb' ? '⚡' : '🏆' }}
+              </span>
+              {{ fila.modelo }}
+              <span class="ganador-tag" *ngIf="fila.ganador">← Elegido</span>
+            </td>
+            <td>{{ fila.acc }}</td>
+            <td>{{ fila.prec }}</td>
+            <td>{{ fila.rec }}</td>
+            <td>{{ fila.f1 }}</td>
+            <td>{{ fila.auc }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Métricas del híbrido -->
+    <div class="metricas-grid" style="margin-top: 20px;">
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.accuracy }}</div>
+        <div class="metrica-label">Accuracy</div>
+        <div class="metrica-enfermedad">Híbrido · {{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.precision }}</div>
+        <div class="metrica-label">Precision</div>
+        <div class="metrica-enfermedad">Híbrido · {{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.recall }}</div>
+        <div class="metrica-label">Recall</div>
+        <div class="metrica-enfermedad">Híbrido · {{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.f1 }}</div>
+        <div class="metrica-label">F1-Score</div>
+        <div class="metrica-enfermedad">Híbrido · {{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.auc }}</div>
+        <div class="metrica-label">AUC-ROC</div>
+        <div class="metrica-enfermedad">Híbrido · {{ tabActivo }}</div>
+      </div>
+    </div>
+
+    <!-- Gráfico completo de evaluación -->
+    <div class="grafico-wrap" style="margin-top:20px;">
+      <img
+        [src]="tabActivo === 'diabetes'
+          ? 'assets/graficos/fig_evaluacion_diabetes.png'
+          : 'assets/graficos/fig_evaluacion_cardiovascular.png'"
+        [alt]="'Evaluación comparativa ' + tabActivo"/>
+      <div class="grafico-caption">
+        Comparación de métricas, matrices de confusión y curvas ROC de los 3 modelos
+        para el dataset de {{ tabActivo }}. El modelo Híbrido aparece en línea discontinua morada.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SISTEMA DE RECOMENDACIÓN ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🏥</span> Sistema de recomendación de hospitales</h2>
+    <div class="callout">
+      <span class="callout-ico">📍</span>
+      <p>
+        Cuando la predicción híbrida supera el umbral de riesgo, el sistema filtra el catálogo
+        de establecimientos de la <strong>Zona 8 (Guayas)</strong> según el tipo de seguro del
+        paciente y su cantón de residencia, priorizando hospitales de <strong>Nivel 3</strong>
+        y especializados en la enfermedad detectada.
+      </p>
+    </div>
+    <div class="grafico-wrap">
+      <img src="assets/graficos/fig_hospitales_disponibles.png"
+        alt="Establecimientos de salud disponibles por enfermedad — Zona 8"/>
+      <div class="grafico-caption">
+        Distribución de establecimientos de salud disponibles en la Zona 8 por tipo de institución,
+        separados por especialidad (Endocrinología / Cardiología).
+      </div>
+    </div>
+
+    <div class="reglas-seguro">
+      <h3 class="subseccion-titulo">📋 Reglas de elegibilidad por tipo de seguro</h3>
+      <div class="reglas-grid">
+        <div class="regla-item"><span class="regla-seg">IESS</span><span>→ Solo establecimientos IESS</span></div>
+        <div class="regla-item"><span class="regla-seg">MSP</span><span>→ MSP + establecimientos públicos</span></div>
+        <div class="regla-item"><span class="regla-seg">Ninguno</span><span>→ MSP + ONGs + sin fines de lucro</span></div>
+        <div class="regla-item"><span class="regla-seg">ISSFA</span><span>→ Ministerio de Defensa Nacional</span></div>
+        <div class="regla-item"><span class="regla-seg">ISSPOL</span><span>→ Policía Nacional</span></div>
+        <div class="regla-item"><span class="regla-seg">Privado</span><span>→ Todos los establecimientos</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>

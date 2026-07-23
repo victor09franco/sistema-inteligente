@@ -1,0 +1,269 @@
+/* ============================================================
+   ESTILOS COMPARTIDOS — Componentes de Modelos ML
+   Tema: Sistema Salud Crónica · Azul marino + acentos por modelo
+   ============================================================ */
+
+/* ─── Variables de color ────────────────────────────────────── */
+:host {
+  --navy:      #1a2b3c;
+  --navy-mid:  #2d4a6b;
+  --slate:     #6b7a8d;
+  --border:    #e2e8f0;
+  --bg:        #f4f6fa;
+  --white:     #ffffff;
+
+  /* Acento por modelo — se sobreescribe en cada componente */
+  --accent:    #3b6fa0;
+  --accent-lt: #eef4fc;
+  --accent-bd: #c3d9f7;
+}
+
+/* ─── Container ─────────────────────────────────────────────── */
+.modelo-container {
+ 
+  margin: 0 auto;
+  padding: 32px 28px 64px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--navy);
+}
+
+/* ─── Hero del modelo ───────────────────────────────────────── */
+.modelo-hero {
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 36px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.modelo-hero::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent-bd); margin-bottom: 10px;
+}
+.hero-titulo {
+  font-size: 2rem; font-weight: 800; line-height: 1.15;
+  margin: 0 0 14px;
+}
+.hero-titulo span { color: var(--accent-bd); }
+.hero-desc {
+  font-size: 0.95rem; opacity: 0.82; max-width: 620px;
+  line-height: 1.7; margin: 0 0 24px;
+}
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-badge {
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ─── Métricas rápidas ──────────────────────────────────────── */
+.metricas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.metrica-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 16px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.metrica-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.metrica-valor {
+  font-size: 1.9rem; font-weight: 800;
+  color: var(--accent); line-height: 1;
+  margin-bottom: 6px;
+}
+.metrica-label {
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--slate);
+}
+.metrica-enfermedad {
+  font-size: 0.68rem; color: #b0b8c4;
+  margin-top: 4px;
+}
+
+/* ─── Sección genérica ──────────────────────────────────────── */
+.seccion {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.seccion-titulo {
+  font-size: 1rem; font-weight: 700;
+  color: var(--navy); margin: 0 0 20px;
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.seccion-titulo .ico { font-size: 1.2rem; }
+
+/* ─── Tabs ──────────────────────────────────────────────────── */
+.tabs-bar {
+  display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 7px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px; background: var(--white);
+  font-size: 0.82rem; font-weight: 600;
+  color: var(--slate); cursor: pointer;
+  transition: all 0.18s;
+}
+.tab-btn:hover  { border-color: var(--accent); color: var(--accent); }
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ─── Imagen de gráfico ─────────────────────────────────────── */
+.grafico-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #fafbfc;
+}
+.grafico-wrap img {
+  width: 100%; height: auto; display: block;
+}
+.grafico-caption {
+  padding: 10px 14px;
+  font-size: 0.76rem; color: var(--slate);
+  background: #f8fafc;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Parámetros ────────────────────────────────────────────── */
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.param-item {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent);
+}
+.param-nombre {
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--navy); font-family: 'Courier New', monospace;
+  margin-bottom: 4px;
+}
+.param-valor {
+  font-size: 1rem; font-weight: 800; color: var(--accent);
+  margin-bottom: 4px;
+}
+.param-desc {
+  font-size: 0.74rem; color: var(--slate); line-height: 1.5;
+}
+
+/* ─── Flujo del proceso ─────────────────────────────────────── */
+.flujo {
+  display: flex; align-items: center;
+  gap: 0; flex-wrap: wrap;
+}
+.flujo-paso {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; flex: 1; min-width: 90px; position: relative;
+}
+.flujo-icono {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--accent-lt);
+  border: 2px solid var(--accent-bd);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 8px; position: relative; z-index: 1;
+}
+.flujo-texto { font-size: 0.74rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+.flujo-sub   { font-size: 0.67rem; color: var(--slate); margin-top: 2px; }
+.flujo-linea {
+  flex: 0 0 32px; height: 2px;
+  background: linear-gradient(90deg, var(--accent-bd), var(--accent));
+  margin-bottom: 28px;
+}
+
+/* ─── Tabla comparativa (Híbrido) ───────────────────────────── */
+.tabla-comp {
+  width: 100%; border-collapse: collapse; font-size: 0.85rem;
+}
+.tabla-comp th {
+  background: var(--navy); color: #fff;
+  padding: 12px 16px; text-align: left; font-weight: 600;
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.tabla-comp th:first-child { border-radius: 8px 0 0 0; }
+.tabla-comp th:last-child  { border-radius: 0 8px 0 0; }
+.tabla-comp td {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  color: var(--navy);
+}
+.tabla-comp tr:last-child td { border-bottom: none; }
+.tabla-comp tr:hover td { background: var(--bg); }
+.tabla-comp tr.fila-ganador td {
+  background: var(--accent-lt);
+  font-weight: 700;
+}
+.badge-modelo {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 10px; font-size: 0.72rem; font-weight: 700;
+}
+.badge-rf  { background: #dbeafe; color: #1d4ed8; }
+.badge-xgb { background: #dcfce7; color: #16a34a; }
+.badge-hib { background: #ede9fe; color: #6d28d9; }
+
+/* ─── Info callout ──────────────────────────────────────────── */
+.callout {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 18px; border-radius: 10px;
+  margin-bottom: 16px;
+  background: var(--accent-lt);
+  border: 1px solid var(--accent-bd);
+}
+.callout-ico { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+.callout p   { margin: 0; font-size: 0.87rem; line-height: 1.7; color: var(--navy); }
+.callout strong { color: var(--accent); }
+
+/* ─── Barra de importancia ──────────────────────────────────── */
+.importancia-lista { display: flex; flex-direction: column; gap: 10px; }
+.imp-item { display: flex; align-items: center; gap: 10px; font-size: 0.83rem; }
+.imp-nombre { width: 180px; flex-shrink: 0; color: var(--navy); font-weight: 500; }
+.imp-barra-wrap {
+  flex: 1; height: 10px; background: var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.imp-barra {
+  height: 100%; border-radius: 8px;
+  background: linear-gradient(90deg, var(--accent), var(--navy-mid));
+  transition: width 0.6s ease;
+}
+.imp-valor { width: 42px; text-align: right; color: var(--slate); font-size: 0.78rem; }
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .modelo-container { padding: 16px 12px 40px; }
+  .modelo-hero      { padding: 24px 20px; }
+  .hero-titulo      { font-size: 1.5rem; }
+  .flujo            { gap: 8px; }
+  .flujo-linea      { flex: 0 0 16px; }
+  .metricas-grid    { grid-template-columns: repeat(2, 1fr); }
+}

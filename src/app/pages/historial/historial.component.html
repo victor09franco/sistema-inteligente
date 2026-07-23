@@ -1,0 +1,239 @@
+<div class="historial-container">
+
+  <!-- ══ ENCABEZADO ══ -->
+  <div class="page-header">
+    <div class="page-header-text">
+      <h2>Historial de Evaluaciones</h2>
+      <p>Busque un paciente por cédula o nombre para ver sus evaluaciones</p>
+    </div>
+  </div>
+
+  <!-- ══ BUSCADOR ══ -->
+  <div class="search-section">
+    <div class="search-wrap">
+      <div class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </div>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Buscar por cédula (10 dígitos) o nombre del paciente..."
+        [(ngModel)]="terminoBusqueda"
+        (ngModelChange)="onInputBusqueda()"
+        autocomplete="off"/>
+      <span class="search-spinner" *ngIf="buscando"></span>
+      <button class="search-clear" *ngIf="terminoBusqueda" (click)="limpiarBusqueda()">✕</button>
+    </div>
+
+    <!-- Dropdown de resultados -->
+    <div class="search-dropdown" *ngIf="resultadosBusqueda.length > 0">
+      <div class="dropdown-item" *ngFor="let p of resultadosBusqueda" (click)="seleccionarPaciente(p)">
+        <div class="dropdown-avatar">{{ p.nombre[0] }}{{ p.apellido[0] }}</div>
+        <div class="dropdown-info">
+          <strong>{{ p.nombre }} {{ p.apellido }}</strong>
+          <span>C.I. {{ p.cedula }} · {{ p.canton }} · {{ calcularEdad(p.fecha_nacimiento) }} años</span>
+        </div>
+        <span class="dropdown-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- Sin resultados -->
+    <div class="search-no-results" *ngIf="sinResultados && !buscando">
+      <span></span> No se encontraron pacientes con ese criterio
+    </div>
+  </div>
+
+  <!-- ══ ESTADO INICIAL (sin búsqueda) ══ -->
+  <div class="empty-state" *ngIf="!pacienteSeleccionado && !buscando && terminoBusqueda.length < 2">
+    <div class="empty-icon">📋</div>
+    <h3>Busque un paciente</h3>
+    <p>Ingrese la cédula o el nombre en el buscador para ver su historial de evaluaciones</p>
+  </div>
+
+  <!-- ══ SPINNER cargando historial ══ -->
+  <div class="loading-historial" *ngIf="cargandoHistorial">
+    <span class="loading-spinner"></span>
+    <span>Cargando historial...</span>
+  </div>
+
+  <!-- ══ CONTENIDO PRINCIPAL ══ -->
+  <div *ngIf="pacienteSeleccionado && !cargandoHistorial">
+
+    <!-- ── Tarjeta resumen del paciente ── -->
+    <div class="paciente-card">
+      <div class="paciente-avatar">
+        {{ pacienteSeleccionado.nombre[0] }}{{ pacienteSeleccionado.apellido[0] }}
+      </div>
+      <div class="paciente-info">
+        <h3>{{ pacienteSeleccionado.nombre }} {{ pacienteSeleccionado.apellido }}</h3>
+        <div class="paciente-meta">
+          <span>🪪 {{ pacienteSeleccionado.cedula }}</span>
+          <span>🎂 {{ calcularEdad(pacienteSeleccionado.fecha_nacimiento) }} años</span>
+          <span>⚥ {{ pacienteSeleccionado.genero === 'Male' ? 'Masculino' : pacienteSeleccionado.genero === 'Female' ? 'Femenino' : 'Otro' }}</span>
+          <span>📍 {{ pacienteSeleccionado.canton }}, {{ pacienteSeleccionado.parroquia }}</span>
+          <span>🏥 {{ pacienteSeleccionado.tipo_seguro }}</span>
+        </div>
+      </div>
+
+      <!-- Estadísticas rápidas -->
+      <div class="paciente-stats">
+        <div class="stat-item">
+          <span class="stat-num">{{ evaluaciones.length }}</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-item stat-diabetes">
+          <span class="stat-num">{{ contarPorTipo('diabetes') }}</span>
+          <span class="stat-label">Diabetes</span>
+        </div>
+        <div class="stat-item stat-cardio">
+          <span class="stat-num">{{ contarPorTipo('cardiovascular') }}</span>
+          <span class="stat-label">Cardio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Filtros ── -->
+    <div class="filtros-bar" *ngIf="evaluaciones.length > 0">
+      <button class="filtro-btn" [class.active]="filtroTipo === 'todas'"
+        (click)="cambiarFiltro('todas')">
+        Todas ({{ evaluaciones.length }})
+      </button>
+      <button class="filtro-btn filtro-diabetes" [class.active]="filtroTipo === 'diabetes'"
+        (click)="cambiarFiltro('diabetes')"
+        *ngIf="contarPorTipo('diabetes') > 0">
+         Diabetes ({{ contarPorTipo('diabetes') }})
+      </button>
+      <button class="filtro-btn filtro-cardio" [class.active]="filtroTipo === 'cardiovascular'"
+        (click)="cambiarFiltro('cardiovascular')"
+        *ngIf="contarPorTipo('cardiovascular') > 0">
+         Cardiovascular ({{ contarPorTipo('cardiovascular') }})
+      </button>
+    </div>
+
+    <!-- ── Sin evaluaciones ── -->
+    <div class="empty-evaluaciones" *ngIf="evaluaciones.length === 0">
+      <span></span>
+      <p>Este paciente aún no tiene evaluaciones registradas</p>
+    </div>
+
+    <!-- ── Lista de evaluaciones ── -->
+    <div class="evaluaciones-lista" *ngIf="evaluacionesFiltradas.length > 0">
+      <div class="eval-item"
+        *ngFor="let ev of evaluacionesFiltradas"
+        [class.expandida]="idExpandido === ev.id_evaluacion"
+        [class.riesgo]="ev.hay_riesgo"
+        [class.sin-riesgo]="!ev.hay_riesgo">
+
+        <!-- Fila principal (siempre visible) -->
+        <div class="eval-fila" (click)="toggleDetalle(ev.id_evaluacion)">
+
+          <!-- Icono de tipo -->
+          <div class="eval-tipo-icono"
+            [class.icono-diabetes]="ev.tipo_enfermedad === 'diabetes'"
+            [class.icono-cardio]="ev.tipo_enfermedad === 'cardiovascular'">
+            {{ ev.tipo_enfermedad === 'diabetes' ? '🩸' : '❤️' }}
+          </div>
+
+          <!-- Info central -->
+          <div class="eval-info">
+            <div class="eval-titulo">
+              {{ ev.tipo_enfermedad === 'diabetes' ? 'Diabetes' : 'Cardiovascular' }}
+              <span class="eval-id">#{{ ev.id_evaluacion }}</span>
+            </div>
+            <div class="eval-meta">
+              <span>📅 {{ formatearFecha(ev.fecha_hora) }}</span>
+              <span>👤 {{ ev.edad_al_evaluar }} años al evaluar</span>
+            </div>
+          </div>
+
+          <!-- Probabilidad + tendencia -->
+          <div class="eval-prob">
+            <div class="prob-circle"
+              [class.prob-alto]="ev.hay_riesgo"
+              [class.prob-bajo]="!ev.hay_riesgo">
+              {{ porcentaje(ev.prob_hibrida) }}
+            </div>
+            <!-- Tendencia respecto a evaluación anterior del mismo tipo -->
+            <span class="tendencia sube" *ngIf="tendencia(ev) === 'sube'" title="Riesgo aumentó">▲</span>
+            <span class="tendencia baja" *ngIf="tendencia(ev) === 'baja'" title="Riesgo bajó">▼</span>
+            <span class="tendencia igual" *ngIf="tendencia(ev) === 'igual'" title="Sin cambio significativo">━</span>
+          </div>
+
+          <!-- Badge riesgo -->
+          <div class="eval-riesgo-badge" [class.badge-riesgo]="ev.hay_riesgo" [class.badge-ok]="!ev.hay_riesgo">
+            {{ ev.hay_riesgo ? '⚠️ Riesgo' : '✅ Sin riesgo' }}
+          </div>
+
+          <!-- Flecha expandir -->
+          <div class="eval-chevron" [class.rotado]="idExpandido === ev.id_evaluacion">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- ── Detalle expandible ── -->
+        <div class="eval-detalle" *ngIf="idExpandido === ev.id_evaluacion">
+
+          <!-- Probabilidades de los 3 modelos -->
+          <div class="detalle-seccion">
+            <h4> Probabilidades por modelo</h4>
+            <div class="modelos-grid">
+
+              <div class="modelo-item">
+                <span class="modelo-nombre">Random Forest</span>
+                <div class="modelo-barra-wrap">
+                  <div class="modelo-barra rf" [style.width.%]="(ev.prob_random_forest ?? 0) * 100"></div>
+                </div>
+                <span class="modelo-valor">{{ porcentaje(ev.prob_random_forest ?? null) }}</span>
+              </div>
+
+              <div class="modelo-item">
+                <span class="modelo-nombre">XGBoost</span>
+                <div class="modelo-barra-wrap">
+                  <div class="modelo-barra xgb" [style.width.%]="(ev.prob_xgboost ?? 0) * 100"></div>
+                </div>
+                <span class="modelo-valor">{{ porcentaje(ev.prob_xgboost ?? null) }}</span>
+              </div>
+
+              <div class="modelo-item hibrida">
+                <span class="modelo-nombre"> Híbrida </span>
+                <div class="modelo-barra-wrap">
+                  <div class="modelo-barra hib" [style.width.%]="(ev.prob_hibrida ?? 0) * 100"></div>
+                </div>
+                <span class="modelo-valor"><strong>{{ porcentaje(ev.prob_hibrida) }}</strong></span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Hospitales recomendados -->
+          <div class="detalle-seccion" *ngIf="ev.hay_riesgo && ev.hospitales_top3.length > 0">
+            <h4> Establecimientos recomendados</h4>
+            <div class="hospitales-mini">
+              <div class="hosp-mini-item" *ngFor="let h of ev.hospitales_top3">
+                <span class="hosp-num">#{{ h.posicion_top }}</span>
+                <div class="hosp-mini-info">
+                  <strong>{{ h.nombre_hospital }}</strong>
+                  <span>{{ h.nivel_atencion }} · {{ h.canton_hospital }} · {{ h.sector }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensaje sin riesgo -->
+          <div class="detalle-seccion sin-riesgo-detalle" *ngIf="!ev.hay_riesgo">
+            <span>✅</span>
+            <p>No se detectó riesgo en esta evaluación. Se recomienda control preventivo regular.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

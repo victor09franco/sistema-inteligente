@@ -1,0 +1,25 @@
+/* ── Acento Random Forest — Azul bosque ── */
+:host {
+  --accent:    #1d6fa0;
+  --accent-lt: #e8f4fd;
+  --accent-bd: #93c5e8;
+}
+
+.razon-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px; background: var(--bg);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.razon-ico  { font-size: 1.6rem; flex-shrink: 0; }
+.razon-item strong { display: block; font-size: 0.9rem; color: var(--navy); margin-bottom: 4px; }
+.razon-item p  { font-size: 0.83rem; color: var(--slate); margin: 0; line-height: 1.6; }
+.razon-item code {
+  background: #dbeafe; color: #1d4ed8;
+  padding: 1px 5px; border-radius: 4px; font-size: 0.8rem;
+}
+.razones-grid { display: flex; flex-direction: column; gap: 0; }
+
+.subseccion-titulo {
+  font-size: 0.9rem; font-weight: 700; color: var(--navy);
+  margin: 20px 0 14px;
+}

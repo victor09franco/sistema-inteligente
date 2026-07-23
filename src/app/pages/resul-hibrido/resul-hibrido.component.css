@@ -1,0 +1,109 @@
+/* ── Acento Híbrido — Violeta ── */
+:host {
+  --accent:    #6d28d9;
+  --accent-lt: #f5f3ff;
+  --accent-bd: #c4b5fd;
+}
+
+/* Fórmula */
+.formula-seccion { border-top: 3px solid var(--accent); }
+
+.formula-box {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 28px 32px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.formula-texto {
+  font-size: 1.6rem; font-weight: 700; color: #fff;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 14px;
+}
+.formula-texto sub { font-size: 0.7em; }
+.coef { font-size: 1.9rem; font-weight: 900; }
+.coef.rf  { color: #93c5fd; }
+.coef.xgb { color: #6ee7b7; }
+.formula-umbral { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+.riesgo-tag { color: #fca5a5; font-weight: 700; }
+.ok-tag     { color: #6ee7b7; font-weight: 700; }
+
+/* Pesos */
+.pesos-explicacion {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.peso-item {
+  text-align: center; padding: 16px 22px;
+  border-radius: 12px; min-width: 130px;
+  border: 2px solid var(--border);
+}
+.rf-peso  { border-color: #93c5fd; background: #eff6ff; }
+.xgb-peso { border-color: #6ee7b7; background: #f0fdf4; }
+.hib-peso { border-color: var(--accent-bd); background: var(--accent-lt); }
+
+.peso-num   { font-size: 2rem; font-weight: 900; color: var(--navy); line-height: 1; }
+.rf-peso  .peso-num { color: #1d4ed8; }
+.xgb-peso .peso-num { color: #059669; }
+.hib-peso .peso-num { color: var(--accent); }
+
+.peso-modelo { font-size: 0.8rem; font-weight: 700; color: var(--navy); margin: 4px 0; }
+.peso-razon  { font-size: 0.7rem; color: var(--slate); line-height: 1.4; }
+.peso-simbolo { font-size: 2rem; font-weight: 700; color: var(--slate); }
+
+/* Pasos del flujo */
+.pasos-lista { display: flex; flex-direction: column; gap: 0; }
+.paso-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  position: relative; padding-bottom: 0;
+}
+.paso-num {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent); color: #fff;
+  font-size: 0.75rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+}
+.paso-ico { font-size: 1.4rem; flex-shrink: 0; margin-top: 4px; }
+.paso-info {
+  flex: 1; padding: 4px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.paso-item:last-child .paso-info { border-bottom: none; margin-bottom: 0; }
+.paso-info strong { display: block; font-size: 0.92rem; color: var(--navy); margin-bottom: 3px; }
+.paso-info span   { font-size: 0.82rem; color: var(--slate); }
+.paso-linea {
+  position: absolute; left: 18px; top: 36px;
+  width: 2px; height: calc(100% - 20px);
+  background: var(--accent-bd); z-index: 0;
+}
+
+/* Tabla */
+.tabla-wrap { overflow-x: auto; border-radius: 10px; }
+.ganador-tag {
+  font-size: 0.7rem; font-weight: 700;
+  color: var(--accent); margin-left: 6px;
+}
+
+/* Recomendación */
+.subseccion-titulo {
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--navy); margin: 20px 0 14px;
+}
+.reglas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+.regla-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.82rem; color: var(--navy);
+  padding: 10px 14px;
+  background: var(--bg); border-radius: 8px;
+}
+.regla-seg {
+  font-weight: 700; font-size: 0.75rem;
+  background: var(--accent); color: #fff;
+  padding: 3px 8px; border-radius: 8px; white-space: nowrap;
+}

@@ -1,0 +1,228 @@
+<div class="page">
+
+  <!-- ══════════════════════════ HERO ══════════════════════════ -->
+  <section class="hero">
+    <div class="hero__decor-top"></div>
+    <div class="hero__decor-bottom"></div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <span class="badge badge--light">Información y Prevención</span>
+        <h1 class="hero__title">
+          Enfermedades Crónicas:
+          <span class="hero__title--accent">Conoce, Previene y Actúa</span>
+        </h1>
+        <p class="hero__desc">
+          Las enfermedades crónicas no transmisibles (ECNT), entre ellas la diabetes y las enfermedades cardiovasculares, son la principal causa de muerte en el mundo. Según la Organización Mundial de la Salud, estas enfermedades provocan aproximadamente
+          <strong>43 millones de muertes al año,</strong> lo que representa cerca del 75 % de todas las muertes globales.
+        </p>
+      </div>
+      <div class="hero__image-wrap">
+        <div class="hero__glow"></div>
+        <img
+          src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=700&h=560&fit=crop&auto=format"
+          alt="Ilustración de corazón humano"
+          class="hero__img"
+        />
+        <div class="badge-float badge-float--bottom">💧 Diabetes</div>
+        <div class="badge-float badge-float--top">❤️ Cardiovascular</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ ESTADÍSTICAS ══════════════════════ -->
+  <section id="estadisticas" class="stats">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Cifras que no podemos ignorar</h2>
+        <p>Las enfermedades crónicas no transmisibles son responsables del 74% de todas las muertes a nivel mundial según la OMS.</p>
+      </div>
+      <div class="stats__grid">
+        @for (stat of stats; track stat.label) {
+          <div class="stat-card">
+            <div class="stat-card__value" [style.color]="stat.color">{{ stat.value }}</div>
+            <p class="stat-card__label">{{ stat.label }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ DIABETES ══════════════════════ -->
+  <section id="diabetes" class="disease" style="background:#fffbf5">
+    <div class="section-inner">
+      <div class="disease__grid">
+        <div class="disease__text">
+          <div class="disease__subtitle">
+            <div class="disease__icon" style="background:#e67e22">💉</div>
+            <span style="color:#e67e22">Enfermedad metabólica</span>
+          </div>
+          <h2 class="disease__title">Diabetes Mellitus</h2>
+          <p class="disease__desc">
+            La diabetes mellitus es un grupo de enfermedades metabólicas caracterizadas por niveles elevados de glucosa en sangre. Existen principalmente tres tipos: tipo 1 (autoinmune), tipo 2 (la más común) y gestacional. Sin tratamiento adecuado puede causar daños graves en ojos, riñones, nervios y corazón.
+          </p>
+          <div class="tabs">
+            @for (tab of diabetesTabs; track tab.label; let i = $index) {
+              <button
+                class="tabs__btn"
+                [style.background]="diabetesTab() === i ? '#e67e22' : '#fde8c8'"
+                [style.color]="diabetesTab() === i ? '#fff' : '#1a2332'"
+                (click)="diabetesTab.set(i)"
+              >{{ tab.label }}</button>
+            }
+          </div>
+          <ul class="disease__list">
+            @for (item of diabetesTabs[diabetesTab()].content; track item) {
+              <li class="disease__list-item">
+                <div class="disease__dot" style="background:#e67e22"></div>
+                <span>{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="disease__image-wrap">
+          <div class="disease__glow" style="background:#e67e22"></div>
+          <img src="https://images.unsplash.com/photo-1624454002429-40ed87a5ec04?w=700&h=500&fit=crop&auto=format"
+               alt="Dispositivo de medición de glucosa" class="disease__img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ CARDIOVASCULAR ════════════════════ -->
+  <section id="cardiovascular" class="disease" style="background:#fdf7f7">
+    <div class="section-inner">
+      <div class="disease__grid disease__grid--flipped">
+        <div class="disease__text">
+          <div class="disease__subtitle">
+            <div class="disease__icon" style="background:#c0392b">❤️</div>
+            <span style="color:#c0392b">Enfermedades del corazón y vasos sanguíneos</span>
+          </div>
+          <h2 class="disease__title">Enfermedades Cardiovasculares</h2>
+          <p class="disease__desc">
+            Las enfermedades cardiovasculares abarcan trastornos del corazón y los vasos sanguíneos, incluyendo cardiopatía coronaria, ACV, hipertensión e insuficiencia cardíaca. Son la principal causa de muerte en el mundo, aunque hasta un 80% de los casos prematuros son prevenibles.
+          </p>
+          <div class="tabs">
+            @for (tab of cardiovascTabs; track tab.label; let i = $index) {
+              <button
+                class="tabs__btn"
+                [style.background]="cardiovascTab() === i ? '#c0392b' : '#fde8e8'"
+                [style.color]="cardiovascTab() === i ? '#fff' : '#1a2332'"
+                (click)="cardiovascTab.set(i)"
+              >{{ tab.label }}</button>
+            }
+          </div>
+          <ul class="disease__list">
+            @for (item of cardiovascTabs[cardiovascTab()].content; track item) {
+              <li class="disease__list-item">
+                <div class="disease__dot" style="background:#c0392b"></div>
+                <span>{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="disease__image-wrap">
+          <div class="disease__glow" style="background:#c0392b"></div>
+          <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=700&h=500&fit=crop&auto=format"
+               alt="Estetoscopio médico" class="disease__img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════ RENAL ═══════════════════════ -->
+  <section id="renal" class="disease" style="background:#f4f9fc">
+    <div class="section-inner">
+      <div class="disease__grid">
+        <div class="disease__text">
+          <div class="disease__subtitle">
+            <div class="disease__icon" style="background:#2e86ab">EC</div>
+            <span style="color:#2e86ab">En Ecuador</span>
+          </div>
+          <h2 class="disease__title">Enfermedades crónicas en Ecuador</h2>
+          <p class="disease__desc">
+            Las enfermedades crónicas no transmisibles constituyen uno de los principales problemas de salud pública en Ecuador. Se caracterizan por tener una evolución prolongada y, en la mayoría de los casos, requieren un tratamiento y seguimiento permanente. Entre las más frecuentes se encuentran las enfermedades cardiovasculares, la diabetes, la hipertensión arterial, las enfermedades respiratorias crónicas y algunos tipos de cáncer.
+          </p>
+          
+        </div>
+        <div class="disease__image-wrap">
+          <div class="disease__glow" style="background:#2e86ab"></div>
+          <img src="https://suportamed.com/wp-content/uploads/2021/03/EnfCronicaMundo.jpg"
+               alt="Modelo anatómico de riñón" class="disease__img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ PREVENCIÓN ════════════════════ -->
+  <section id="prevencion" class="prevention">
+    <div class="section-inner">
+      <div class="section-header section-header--light">
+        <span class="badge badge--accent">Medidas preventivas</span>
+        <h2>Cómo reducir tu riesgo</h2>
+        <p>La prevención es la estrategia más efectiva para disminuir la incidencia de enfermedades crónicas como la diabetes y las enfermedades cardiovasculares. Adoptar hábitos saludables puede reducir significativamente el riesgo de desarrollarlas y mejorar la calidad de vida..</p>
+      </div>
+      <div class="prevention__grid">
+        @for (tip of tips; track tip.title) {
+          <div class="tip-card">
+            <div class="tip-card__icon" [style.background]="tip.color">{{ tip.icon }}</div>
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ TRÍADA CRÓNICA ═══════════════════ -->
+  <section class="relation">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>La tríada crónica: cómo se relacionan</h2>
+        <p>Estas tres enfermedades no actúan de forma aislada: se potencian y aceleran mutuamente en un ciclo que puede ser interrumpido con intervención temprana.</p>
+      </div>
+      <div class="relation__grid">
+        @for (rel of relations; track rel.from) {
+          <div class="rel-card">
+            <div class="rel-card__badges">
+              <span class="rel-badge" [style.background]="rel.color">{{ rel.from }}</span>
+              <span class="rel-arrow">→</span>
+              <span class="rel-badge rel-badge--dark">{{ rel.to }}</span>
+            </div>
+            <p>{{ rel.text }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ FAQ ═══════════════════════════ -->
+  <section class="faq">
+    <div class="section-inner section-inner--narrow">
+      <h2 class="faq__title">Preguntas frecuentes</h2>
+      <div class="faq__list">
+        @for (faq of faqs; track faq.q; let i = $index) {
+          <div class="faq-item">
+            <button class="faq-item__btn" (click)="toggleFaq(i)">
+              <span>{{ faq.q }}</span>
+              <span class="faq-item__icon">{{ faqOpen() === i ? '−' : '+' }}</span>
+            </button>
+            @if (faqOpen() === i) {
+              <div class="faq-item__answer">{{ faq.a }}</div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ CTA ═══════════════════════════ -->
+  <section class="cta">
+    <div class="section-inner section-inner--narrow cta__inner">
+      <p class="cta__icon">📞</p>
+      <h2>¿Tienes síntomas o factores de riesgo?</h2>
+      <p>Esta página tiene fines exclusivamente educativos. Si presentas alguno de los síntomas descritos, consulta con tu médico o especialista de confianza para una evaluación personalizada.</p>
+      <div class="cta__pill">🛡️ Consulta siempre a un profesional de salud</div>
+    </div>
+  </section>
+
+</div>

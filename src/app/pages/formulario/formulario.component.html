@@ -1,0 +1,488 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2>Evaluación de Riesgo</h2>
+    <p>Complete todos los campos para generar la predicción y recomendación de centros de salud</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- ══ SECCIÓN 1 — IDENTIFICACIÓN DEL PACIENTE ══ -->
+    <section class="form-section">
+      <h3 class="section-title">
+        <span class="step-badge">1</span>
+        Identificación del Paciente
+      </h3>
+
+      <!-- ── Cédula PRIMERO (campo principal) ── -->
+      <div class="cedula-principal">
+        <label class="field-label required">Número de cédula</label>
+        <div class="cedula-input-wrap">
+          <input
+            class="field-input cedula-input"
+            type="text"
+            placeholder="Ingrese 10 dígitos"
+            maxlength="10"
+            formControlName="cedula"
+            autocomplete="off"/>
+          <span class="cedula-spinner" *ngIf="buscandoCedula"></span>
+        </div>
+        <span class="error-msg" *ngIf="campoInvalido('cedula')">Debe tener exactamente 10 dígitos numéricos</span>
+
+        <!-- Badge paciente encontrado -->
+        <div class="cedula-badge found" *ngIf="pacienteEncontrado">
+          <span></span>
+          <span>Paciente encontrado — datos autocompletos. Verifícalos antes de continuar.</span>
+        </div>
+
+        <!-- Badge paciente nuevo -->
+        <div class="cedula-badge new" *ngIf="pacienteNuevo">
+          <span></span>
+          <span>Cédula no registrada — complete los datos del nuevo paciente.</span>
+        </div>
+      </div>
+
+      <!-- ── Resto de campos ── -->
+      <div class="fields-grid" style="margin-top: 20px;">
+
+        <div class="field-group">
+          <label class="field-label required">Nombre(s)</label>
+          <input class="field-input" type="text" placeholder="Ej: Juan Carlos" formControlName="nombre" autocomplete="off"/>
+          <span class="error-msg" *ngIf="campoInvalido('nombre')">Ingrese el nombre (mín. 2 caracteres)</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Apellido(s)</label>
+          <input class="field-input" type="text" placeholder="Ej: Pérez Mora" formControlName="apellido" autocomplete="off"/>
+          <span class="error-msg" *ngIf="campoInvalido('apellido')">Ingrese el apellido (mín. 2 caracteres)</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Fecha de nacimiento</label>
+          <input class="field-input" type="date" formControlName="fechaNacimiento" [max]="hoyMax"/>
+          <div class="edad-badge" *ngIf="edadCalculada !== null">
+            <span></span>
+            <span><strong>{{ edadCalculada }} años</strong></span>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('fechaNacimiento')">Fecha de nacimiento inválida</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 2 — UBICACIÓN Y COBERTURA ══ -->
+    <section class="form-section">
+      <h3 class="section-title">
+        <span class="step-badge">2</span>
+        Ubicación y Cobertura
+      </h3>
+
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <label class="field-label">Provincia</label>
+          <input class="field-input disabled-input" type="text" value="Guayas" disabled/>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Cantón / Ciudad</label>
+          <select class="field-select" formControlName="canton">
+            <option value="">Seleccionar...</option>
+            <option value="Guayaquil">Guayaquil</option>
+            <option value="Durán">Durán</option>
+            <option value="Samborondón">Samborondón</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('canton')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Parroquia</label>
+          <select class="field-select" formControlName="parroquia" [attr.disabled]="!form.get('canton')?.value ? true : null">
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let p of parroquiasDisponibles" [value]="p">{{ p }}</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('parroquia')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Área de residencia</label>
+          <select class="field-select" formControlName="areaResidencia">
+            <option value="">Seleccionar...</option>
+            <option value="urbana">Urbana</option>
+            <option value="rural">Rural</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('areaResidencia')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Tipo de seguro</label>
+          <select class="field-select" formControlName="tipoSeguro">
+            <option value="">Seleccionar...</option>
+            <option value="IESS">IESS</option>
+            <option value="MSP">MSP</option>
+            <option value="Ninguno">Ninguno</option>
+            <option value="Privado">Privado</option>
+            <option value="ISSFA">ISSFA</option>
+            <option value="ISSPOL">ISSPOL</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('tipoSeguro')">Campo obligatorio</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 3 — TIPO DE EVALUACIÓN ══ -->
+    <section class="form-section">
+      <h3 class="section-title">
+        <span class="step-badge">3</span>
+        Tipo de Evaluación
+      </h3>
+
+      <div class="field-group highlight-field">
+        <label class="field-label required">Seleccione la enfermedad a evaluar</label>
+        <div class="radio-group">
+          <label class="radio-card" [class.selected]="form.get('tipoEvaluacion')?.value === 'diabetes'">
+            <input type="radio" formControlName="tipoEvaluacion" value="diabetes"/>
+            <span class="radio-icon"></span>
+            <div>
+              <strong>Diabetes</strong>
+              
+            </div>
+          </label>
+          <label class="radio-card" [class.selected]="form.get('tipoEvaluacion')?.value === 'cardiovascular'">
+            <input type="radio" formControlName="tipoEvaluacion" value="cardiovascular"/>
+            <span class="radio-icon"></span>
+            <div>
+              <strong>Cardiovascular</strong>
+              
+            </div>
+          </label>
+        </div>
+        <span class="error-msg" *ngIf="campoInvalido('tipoEvaluacion')">Seleccione un tipo de evaluación</span>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 4 — DATOS CLÍNICOS DIABETES ══ -->
+    <section class="form-section disease-section diabetes-section" *ngIf="enfermedadSeleccionada === 'diabetes'">
+      <h3 class="section-title diabetes-title">
+        <span class="step-badge badge-diabetes">4</span>
+        Datos Clínicos — Diabetes
+      </h3>
+
+      <div class="edad-info-banner" *ngIf="edadCalculada !== null">
+        <span></span> Edad del paciente: <strong>{{ edadCalculada }} años</strong> (calculada de fecha de nacimiento)
+      </div>
+
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <label class="field-label required">Género</label>
+          <select class="field-select" formControlName="d_genero">
+            <option value="">Seleccionar...</option>
+            <option value="Female">Femenino</option>
+            <option value="Male">Masculino</option>
+            <option value="Other">Otro</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('d_genero')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">¿Tiene hipertensión arterial?</label>
+          <div class="radio-inline">
+            <label class="radio-pill" [class.selected]="form.get('d_hipertension')?.value === '1'">
+              <input type="radio" formControlName="d_hipertension" value="1"/> Sí
+            </label>
+            <label class="radio-pill" [class.selected]="form.get('d_hipertension')?.value === '0'">
+              <input type="radio" formControlName="d_hipertension" value="0"/> No
+            </label>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('d_hipertension')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">¿Tiene enfermedad cardíaca previa?</label>
+          <div class="radio-inline">
+            <label class="radio-pill" [class.selected]="form.get('d_enfermedadCardiaca')?.value === '1'">
+              <input type="radio" formControlName="d_enfermedadCardiaca" value="1"/> Sí
+            </label>
+            <label class="radio-pill" [class.selected]="form.get('d_enfermedadCardiaca')?.value === '0'">
+              <input type="radio" formControlName="d_enfermedadCardiaca" value="0"/> No
+            </label>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('d_enfermedadCardiaca')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Historial de tabaquismo</label>
+          <select class="field-select" formControlName="d_tabaquismo">
+            <option value="">Seleccionar...</option>
+            <option value="never">Nunca</option>
+            <option value="former">Exfumador</option>
+            <option value="current">Fumador actual</option>
+            <option value="ever">Alguna vez</option>
+            <option value="not current">No actualmente</option>
+            <option value="No Info">Sin información</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('d_tabaquismo')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Índice de masa corporal (kg/m²)</label>
+          <input class="field-input" type="number" min="10" max="95.7" step="0.1" placeholder="Ej: 24.5" formControlName="d_bmi"/>
+          <span class="field-hint">Rango: 10.0 – 95.7</span>
+          <span class="error-msg" *ngIf="campoInvalido('d_bmi')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Nivel de HbA1c (%)</label>
+          <input class="field-input" type="number" min="3.5" max="9.0" step="0.1" placeholder="Ej: 5.5" formControlName="d_hba1c"/>
+          <span class="field-hint">Rango: 3.5 – 9.0</span>
+          <span class="error-msg" *ngIf="campoInvalido('d_hba1c')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Glucosa en sangre (mg/dL)</label>
+          <input class="field-input" type="number" min="80" max="300" placeholder="Ej: 140" formControlName="d_glucosa"/>
+          <span class="field-hint">Rango: 80 – 300</span>
+          <span class="error-msg" *ngIf="campoInvalido('d_glucosa')">Campo obligatorio</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 4 — DATOS CLÍNICOS CARDIOVASCULAR ══ -->
+    <section class="form-section disease-section cardio-section" *ngIf="enfermedadSeleccionada === 'cardiovascular'">
+      <h3 class="section-title cardio-title">
+        <span class="step-badge badge-cardio">4</span>
+        Datos Clínicos — Cardiovascular
+      </h3>
+
+      <div class="edad-info-banner cardio-banner" *ngIf="edadCalculada !== null">
+        <span></span> Edad del paciente: <strong>{{ edadCalculada }} años</strong> (calculada de fecha de nacimiento)
+      </div>
+
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <label class="field-label required">Género</label>
+          <div class="radio-inline">
+            <label class="radio-pill" [class.selected]="form.get('c_genero')?.value === '0'">
+              <input type="radio" formControlName="c_genero" value="0"/> Mujer
+            </label>
+            <label class="radio-pill" [class.selected]="form.get('c_genero')?.value === '1'">
+              <input type="radio" formControlName="c_genero" value="1"/> Hombre
+            </label>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('c_genero')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Tipo de dolor de pecho</label>
+          <select class="field-select" formControlName="c_dolorPecho">
+            <option value="">Seleccionar...</option>
+            <option value="0">Angina típica</option>
+            <option value="1">Angina atípica</option>
+            <option value="2">Dolor no anginoso</option>
+            <option value="3">Asintomático</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('c_dolorPecho')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Presión arterial en reposo (mm Hg)</label>
+          <input class="field-input" type="number" min="94" max="200" placeholder="Ej: 120" formControlName="c_presionArterial"/>
+          <span class="field-hint">Rango: 94 – 200</span>
+          <span class="error-msg" *ngIf="campoInvalido('c_presionArterial')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Colesterol sérico (mg/dl)</label>
+          <input class="field-input" type="number" min="126" max="564" placeholder="Ej: 200" formControlName="c_colesterol"/>
+          <span class="field-hint">Rango: 126 – 564</span>
+          <span class="error-msg" *ngIf="campoInvalido('c_colesterol')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">¿Glucemia en ayunas &gt; 120 mg/dl?</label>
+          <div class="radio-inline">
+            <label class="radio-pill" [class.selected]="form.get('c_glucemiaAyunas')?.value === '1'">
+              <input type="radio" formControlName="c_glucemiaAyunas" value="1"/> Sí
+            </label>
+            <label class="radio-pill" [class.selected]="form.get('c_glucemiaAyunas')?.value === '0'">
+              <input type="radio" formControlName="c_glucemiaAyunas" value="0"/> No
+            </label>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('c_glucemiaAyunas')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">ECG en reposo</label>
+          <select class="field-select" formControlName="c_ecg">
+            <option value="">Seleccionar...</option>
+            <option value="0">Normal</option>
+            <option value="1">Anomalía ST-T</option>
+            <option value="2">Hipertrofia ventricular izq.</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('c_ecg')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Frecuencia cardíaca máxima (lat/min)</label>
+          <input class="field-input" type="number" min="71" max="202" placeholder="Ej: 150" formControlName="c_frecuenciaCardiaca"/>
+          <span class="field-hint">Rango: 71 – 202</span>
+          <span class="error-msg" *ngIf="campoInvalido('c_frecuenciaCardiaca')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">¿Angina inducida por ejercicio?</label>
+          <div class="radio-inline">
+            <label class="radio-pill" [class.selected]="form.get('c_angina')?.value === '1'">
+              <input type="radio" formControlName="c_angina" value="1"/> Sí
+            </label>
+            <label class="radio-pill" [class.selected]="form.get('c_angina')?.value === '0'">
+              <input type="radio" formControlName="c_angina" value="0"/> No
+            </label>
+          </div>
+          <span class="error-msg" *ngIf="campoInvalido('c_angina')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Depresión del segmento ST</label>
+          <input class="field-input" type="number" min="0" max="6.2" step="0.1" placeholder="Ej: 1.5" formControlName="c_depresionST"/>
+          <span class="field-hint">Rango: 0 – 6.2</span>
+          <span class="error-msg" *ngIf="campoInvalido('c_depresionST')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">Pendiente del ST en ejercicio</label>
+          <select class="field-select" formControlName="c_pendiente">
+            <option value="">Seleccionar...</option>
+            <option value="1">Ascendente</option>
+            <option value="2">Plana</option>
+            <option value="3">Descendente</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('c_pendiente')">Campo obligatorio</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label required">N° de vasos principales coloreados</label>
+          <select class="field-select" formControlName="c_vasosprincipales">
+            <option value="">Seleccionar...</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <span class="error-msg" *ngIf="campoInvalido('c_vasosprincipales')">Campo obligatorio</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ PLACEHOLDER sin selección ══ -->
+    <div class="no-selection-hint" *ngIf="!enfermedadSeleccionada">
+      <div class="hint-icon">📋</div>
+      <p>Seleccione un tipo de evaluación para ver los campos clínicos correspondientes</p>
+    </div>
+
+    <!-- ══ BOTÓN SUBMIT ══ -->
+    <div class="form-footer" *ngIf="enfermedadSeleccionada && !resultado">
+      <button type="submit" class="btn-submit" [disabled]="cargando"
+        [class.btn-diabetes]="enfermedadSeleccionada === 'diabetes'"
+        [class.btn-cardio]="enfermedadSeleccionada === 'cardiovascular'">
+
+        <!-- Spinner mientras carga -->
+        <span class="spinner" *ngIf="cargando"></span>
+        <span *ngIf="cargando">Analizando...</span>
+
+        <!-- Normal -->
+        <ng-container *ngIf="!cargando">
+          <span>Evaluar riesgo de {{ enfermedadSeleccionada === 'diabetes' ? 'Diabetes' : 'Enfermedad Cardiovascular' }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </ng-container>
+      </button>
+    </div>
+
+    <!-- ══ ERROR DE API ══ -->
+    <div class="api-error" *ngIf="errorMsg">
+      <span>⚠️</span>
+      <p>{{ errorMsg }}</p>
+    </div>
+
+  </form>
+
+  <!-- ══ TARJETA DE RESULTADO (fuera del form) ══ -->
+  <div class="resultado-card" *ngIf="resultado" [class.riesgo]="resultado.hay_riesgo" [class.sin-riesgo]="!resultado.hay_riesgo">
+
+    <!-- Encabezado resultado -->
+    <div class="resultado-header">
+      <div class="resultado-icono">{{ resultado.hay_riesgo ? '🔴' : '🟢' }}</div>
+      <div>
+        <h3>{{ resultado.hay_riesgo ? 'Riesgo Detectado' : 'Sin Riesgo' }}</h3>
+        <p>Evaluación de {{ resultado.tipo_enfermedad === 'diabetes' ? 'Diabetes' : 'Enfermedad Cardiovascular' }} · Evaluación #{{ resultado.id_evaluacion }}</p>
+      </div>
+    </div>
+
+    <!-- Probabilidades -->
+    <div class="probabilidades">
+      <h4> Probabilidades del modelo</h4>
+      <div class="prob-item">
+        <span class="prob-label">Random Forest</span>
+        <div class="prob-bar-wrap">
+          <div class="prob-bar" [style.width.%]="resultado.prob_random_forest * 100"></div>
+        </div>
+        <span class="prob-valor">{{ (resultado.prob_random_forest * 100).toFixed(1) }}%</span>
+      </div>
+      <div class="prob-item">
+        <span class="prob-label">XGBoost</span>
+        <div class="prob-bar-wrap">
+          <div class="prob-bar" [style.width.%]="resultado.prob_xgboost * 100"></div>
+        </div>
+        <span class="prob-valor">{{ (resultado.prob_xgboost * 100).toFixed(1) }}%</span>
+      </div>
+      <div class="prob-item prob-hibrida">
+        <span class="prob-label"> Híbrida (final)</span>
+        <div class="prob-bar-wrap">
+          <div class="prob-bar" [style.width.%]="resultado.prob_hibrida * 100"></div>
+        </div>
+        <span class="prob-valor"><strong>{{ (resultado.prob_hibrida * 100).toFixed(1) }}%</strong></span>
+      </div>
+      <p class="umbral-info">Umbral de riesgo: 50% · Modelo ganador: <strong>{{ resultado.modelo_ganador }}</strong></p>
+    </div>
+
+    <!-- Hospitales recomendados -->
+    <div class="hospitales-section" *ngIf="resultado.hay_riesgo && resultado.hospitales_top3.length > 0">
+      <h4> Establecimientos recomendados</h4>
+      <div class="hospital-card" *ngFor="let h of resultado.hospitales_top3">
+        <div class="hospital-top">
+          <span class="hospital-num">#{{ h.posicion_top }}</span>
+          <span class="hospital-nombre">{{ h.nombre_hospital }}</span>
+          <span class="hospital-nivel">{{ h.nivel_atencion }}</span>
+        </div>
+        <div class="hospital-detalle">
+          <span> {{ h.institucion }}</span>
+          <span> {{ h.canton_hospital }} — {{ h.parroquia_hospital }}</span>
+          <span> {{ h.clase_establecimiento }}</span>
+          <span> {{ h.sector }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje sin riesgo -->
+    <div class="sin-riesgo-msg" *ngIf="!resultado.hay_riesgo">
+      <p>{{ resultado.mensaje }}</p>
+    </div>
+
+    <!-- Botón nueva evaluación -->
+    <div class="resultado-footer">
+      <button class="btn-nueva" (click)="nuevaEvaluacion()">
+        ＋ Nueva evaluación
+      </button>
+    </div>
+
+  </div>
+
+</div>

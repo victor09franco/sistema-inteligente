@@ -1,0 +1,479 @@
+/* ─── Container ─────────────────────────────────────────── */
+.form-container {
+  margin: 0 auto;
+  padding: 32px 28px 48px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #1e2d3d;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.form-header {
+  margin-bottom: 32px;
+  border-left: 4px solid #3b6fa0;
+  padding-left: 16px;
+}
+.form-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a2b3c;
+  margin: 0 0 6px;
+}
+.form-header p {
+  font-size: 0.9rem;
+  color: #6b7a8d;
+  margin: 0;
+}
+
+/* ─── Section ────────────────────────────────────────────── */
+.form-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a2b3c;
+  margin: 0 0 24px;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3b6fa0;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.badge-diabetes { background: #0d9488; }
+.badge-cardio   { background: #e05a5a; }
+
+/* ─── Disease sections entrance ────────────────────────────── */
+.disease-section {
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.diabetes-section { border-top: 3px solid #0d9488; }
+.cardio-section   { border-top: 3px solid #e05a5a; }
+
+.diabetes-title { color: #0f766e; }
+.cardio-title   { color: #c0392b; }
+
+/* ─── Grid ───────────────────────────────────────────────── */
+.fields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ─── Field group ────────────────────────────────────────── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.highlight-field {
+  grid-column: 1 / -1;
+  background: #f0f6ff;
+  border: 1px solid #c3d9f7;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.field-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.field-label.required::after {
+  content: ' *';
+  color: #e05a5a;
+}
+
+/* ─── Inputs & selects ───────────────────────────────────── */
+.field-input,
+.field-select {
+  height: 42px;
+  padding: 0 14px;
+  border: 1.5px solid #d1d9e6;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #1e2d3d;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.field-input:focus,
+.field-select:focus {
+  border-color: #3b6fa0;
+  box-shadow: 0 0 0 3px rgba(59, 111, 160, 0.15);
+}
+.disabled-input {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  color: #8a97a8;
+}
+
+/* ─── Radio cards (tipo evaluacion) ─────────────────────── */
+.radio-group {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.radio-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border: 2px solid #d1d9e6;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #4b5563;
+  background: #fff;
+  transition: all 0.2s;
+  user-select: none;
+}
+.radio-card input[type="radio"] { display: none; }
+.radio-card.selected {
+  border-color: #3b6fa0;
+  background: #eef4fc;
+  color: #1a2b3c;
+  font-weight: 600;
+}
+.radio-card:hover:not(.selected) {
+  border-color: #a0b8d4;
+  background: #f7faff;
+}
+.radio-icon { font-size: 1.3rem; }
+
+/* ─── Radio pills (Sí/No) ────────────────────────────────── */
+.radio-inline {
+  display: flex;
+  gap: 10px;
+}
+.radio-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1.5px solid #d1d9e6;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #4b5563;
+  background: #fff;
+  transition: all 0.2s;
+  user-select: none;
+}
+.radio-pill input[type="radio"] { display: none; }
+.radio-pill.selected {
+  border-color: #3b6fa0;
+  background: #3b6fa0;
+  color: #fff;
+}
+.radio-pill:hover:not(.selected) {
+  border-color: #a0b8d4;
+  background: #f7faff;
+}
+
+/* ─── Error ──────────────────────────────────────────────── */
+.error-msg {
+  font-size: 0.75rem;
+  color: #e05a5a;
+  font-weight: 500;
+}
+
+/* ─── Placeholder ────────────────────────────────────────── */
+.no-selection-hint {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8fafc;
+  border: 2px dashed #cdd5e0;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  color: #7a8fa6;
+}
+.no-selection-hint .hint-icon { font-size: 2.2rem; margin-bottom: 10px; }
+.no-selection-hint p { font-size: 0.95rem; margin: 0; }
+
+/* ─── Submit button ──────────────────────────────────────── */
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  background: #3b6fa0;
+}
+.btn-submit.btn-diabetes { background: linear-gradient(135deg, #0d9488, #059669); }
+.btn-submit.btn-cardio   { background: linear-gradient(135deg, #e05a5a, #c0392b); }
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+.btn-submit:active { transform: translateY(0); }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .form-container { padding: 16px 12px 32px; }
+  .form-section   { padding: 18px 14px; }
+  .fields-grid    { grid-template-columns: 1fr; }
+  .radio-group    { flex-direction: column; }
+}
+
+/* ─── Identificación — nuevos estilos ──────────────────── */
+.edad-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 6px 14px;
+  background: #eef9f6;
+  border: 1px solid #6fcfb8;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: #0f766e;
+  animation: fadeIn 0.3s ease;
+}
+.edad-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0faf7;
+  border: 1px solid #a7e3d4;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  color: #0f766e;
+  margin-bottom: 20px;
+}
+.cardio-banner {
+  background: #fff5f5;
+  border-color: #f5b8b8;
+  color: #c0392b;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Spinner ────────────────────────────────────────────── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+button:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; }
+
+/* ─── Error API ──────────────────────────────────────────── */
+.api-error {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: #fff5f5; border: 1px solid #fca5a5;
+  border-radius: 10px; padding: 14px 18px; margin-top: 16px;
+  font-size: 0.88rem; color: #991b1b;
+}
+
+/* ─── Tarjeta de resultado ───────────────────────────────── */
+.resultado-card {
+  margin-top: 28px;
+  border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  animation: slideIn 0.35s ease;
+}
+.resultado-card.riesgo    { border-color: #f87171; }
+.resultado-card.sin-riesgo{ border-color: #34d399; }
+
+/* Header */
+.resultado-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1a2b3c, #2d4a6b);
+  color: #fff;
+}
+.resultado-icono { font-size: 2.2rem; }
+.resultado-header h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 4px; }
+.resultado-header p  { font-size: 0.8rem; opacity: 0.75; margin: 0; }
+
+/* Probabilidades */
+.probabilidades {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.probabilidades h4 { font-size: 0.9rem; font-weight: 700; color: #1a2b3c; margin: 0 0 14px; }
+
+.prob-item {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px; font-size: 0.84rem;
+}
+.prob-label { width: 130px; flex-shrink: 0; color: #4b5563; }
+.prob-bar-wrap {
+  flex: 1; height: 10px; background: #e5e7eb;
+  border-radius: 10px; overflow: hidden;
+}
+.prob-bar {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, #3b6fa0, #2d4a6b);
+  transition: width 0.6s ease;
+}
+.prob-hibrida .prob-bar { background: linear-gradient(90deg, #7c3aed, #4f46e5); }
+.prob-valor { width: 50px; text-align: right; font-size: 0.85rem; color: #374151; }
+.umbral-info { font-size: 0.76rem; color: #9ca3af; margin: 10px 0 0; }
+
+/* Hospitales */
+.hospitales-section {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.hospitales-section h4 { font-size: 0.9rem; font-weight: 700; color: #1a2b3c; margin: 0 0 14px; }
+
+.hospital-card {
+  border: 1px solid #e2e8f0; border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 12px;
+  background: #f8fafc;
+}
+.hospital-card:last-child { margin-bottom: 0; }
+
+.hospital-top {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+}
+.hospital-num {
+  background: #3b6fa0; color: #fff;
+  font-size: 0.75rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
+  flex-shrink: 0;
+}
+.hospital-nombre { font-weight: 600; font-size: 0.9rem; color: #1a2b3c; flex: 1; }
+.hospital-nivel  {
+  font-size: 0.72rem; font-weight: 600; padding: 2px 8px;
+  background: #dbeafe; color: #1d4ed8; border-radius: 8px;
+}
+.hospital-detalle {
+  display: flex; flex-wrap: wrap; gap: 6px 18px;
+  font-size: 0.78rem; color: #6b7280;
+}
+
+/* Sin riesgo */
+.sin-riesgo-msg {
+  padding: 20px 24px;
+  font-size: 0.9rem; color: #065f46;
+  background: #ecfdf5;
+}
+
+/* Footer resultado */
+.resultado-footer {
+  padding: 16px 24px;
+  display: flex; justify-content: flex-end;
+  background: #f8fafc;
+}
+.btn-nueva {
+  padding: 10px 24px;
+  background: #fff; border: 1.5px solid #3b6fa0;
+  border-radius: 8px; color: #3b6fa0;
+  font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-nueva:hover { background: #3b6fa0; color: #fff; }
+
+/* ─── Cédula principal ───────────────────────────────────── */
+.cedula-principal {
+  background: #f0f6ff;
+  border: 1.5px solid #c3d9f7;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 4px;
+}
+
+.cedula-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cedula-input {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding-right: 44px;  /* espacio para spinner */
+}
+
+/* Spinner dentro del campo cédula */
+.cedula-spinner {
+  position: absolute;
+  right: 12px;
+  width: 18px; height: 18px;
+  border: 2.5px solid #c3d9f7;
+  border-top-color: #3b6fa0;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* Badges de resultado búsqueda */
+.cedula-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  animation: fadeIn 0.25s ease;
+}
+.cedula-badge.found {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+}
+.cedula-badge.new {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}

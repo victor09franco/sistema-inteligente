@@ -1,0 +1,224 @@
+<div class="modelo-container">
+
+  <!-- ══ HERO ══ -->
+  <div class="modelo-hero">
+    <div class="hero-eyebrow">Modelo de Machine Learning · Ensemble</div>
+    <h1 class="hero-titulo">Random <span>Forest</span></h1>
+    <p class="hero-desc">
+      Algoritmo de aprendizaje conjunto que construye múltiples árboles de decisión durante el
+      entrenamiento y combina sus predicciones para mejorar la precisión y controlar el sobreajuste.
+      Elegido como primer modelo base del sistema por su robustez ante datos ruidosos y su capacidad
+      de manejar variables mixtas sin normalización previa.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge"> 100 árboles</span>
+      <span class="hero-badge"> Scikit-learn</span>
+      <span class="hero-badge"> Balanceo automático</span>
+      <span class="hero-badge"> Cross-validation</span>
+    </div>
+  </div>
+
+  <!-- ══ ¿POR QUÉ FUE ELEGIDO? ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico"></span> ¿Por qué Random Forest en este sistema?</h2>
+    <div class="razones-grid">
+      <div class="razon-item">
+        <div class="razon-ico">🔀</div>
+        <div>
+          <strong>Variables heterogéneas</strong>
+          <p>Los datasets contienen variables continuas (BMI, glucosa) y categóricas (género, tabaquismo) que RF maneja de forma nativa sin escalado obligatorio.</p>
+        </div>
+      </div>
+      <div class="razon-item">
+        <div class="razon-ico">🛡️</div>
+        <div>
+          <strong>Resistencia al sobreajuste</strong>
+          <p>Al promediar cientos de árboles con bootstrap, el modelo generaliza bien aunque los datasets tengan ruido o valores atípicos clínicos.</p>
+        </div>
+      </div>
+      <div class="razon-item">
+        <div class="razon-ico">📋</div>
+        <div>
+          <strong>Interpretabilidad clínica</strong>
+          <p>La importancia de variables permite explicar a un médico qué factores influyeron más en cada predicción, haciendo el sistema transparente.</p>
+        </div>
+      </div>
+      <div class="razon-item">
+        <div class="razon-ico">⚖️</div>
+        <div>
+          <strong>Manejo de clases desbalanceadas</strong>
+          <p>Con <code>class_weight='balanced'</code>, el modelo compensa automáticamente que los casos de diabetes (8.5%) son mucho menos que los negativos (91.5%).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROCESO DE ENTRENAMIENTO ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">⚙️</span> Proceso de entrenamiento</h2>
+    <div class="flujo">
+      <div class="flujo-paso">
+        <div class="flujo-icono">📂</div>
+        <div class="flujo-texto">Dataset<br>original</div>
+        <div class="flujo-sub">100K diab.<br>1000 cardio</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">🧹</div>
+        <div class="flujo-texto">Limpieza<br>y encoding</div>
+        <div class="flujo-sub">LabelEncoder<br>imputación</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">⚗️</div>
+        <div class="flujo-texto">SMOTE<br>(Diabetes)</div>
+        <div class="flujo-sub">6,800 → 73,200<br>casos positivos</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">✂️</div>
+        <div class="flujo-texto">Split<br>80 / 20</div>
+        <div class="flujo-sub">Train / Test<br>estratificado</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">🌲</div>
+        <div class="flujo-texto">Random<br>Forest</div>
+        <div class="flujo-sub">100 árboles<br>Gini</div>
+      </div>
+      <div class="flujo-linea"></div>
+      <div class="flujo-paso">
+        <div class="flujo-icono">📈</div>
+        <div class="flujo-texto">Evaluación<br>y export</div>
+        <div class="flujo-sub">AUC, F1<br>.pkl</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SMOTE ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico"></span> Balanceo de clases con SMOTE</h2>
+    <div class="callout">
+      <span class="callout-ico">💡</span>
+      <p>
+        El dataset de diabetes tenía un severo desbalance: <strong>91.5% sin diabetes</strong> vs
+        <strong>8.5% con diabetes</strong>. Sin corrección, el modelo aprendería a predecir siempre
+        "sin diabetes" y obtendría 91% de accuracy sin ser útil. SMOTE genera muestras sintéticas
+        de la clase minoritaria interpolando entre casos reales existentes, llevando ambas clases a
+        <strong>73,200 muestras cada una</strong>.
+      </p>
+    </div>
+    <div class="grafico-wrap">
+      <img src="assets/graficos/fig_smote_diabetes.png" alt="Efecto de SMOTE en dataset Diabetes"/>
+      <div class="grafico-caption">
+        Efecto de SMOTE — Dataset Diabetes. Izquierda: distribución original (desbalanceada).
+        Derecha: distribución después de SMOTE (balanceada 50/50).
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PARÁMETROS ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🔧</span> Hiperparámetros utilizados</h2>
+    <div class="params-grid">
+      <div class="param-item" *ngFor="let p of parametros">
+        <div class="param-nombre">{{ p.nombre }}</div>
+        <div class="param-valor">{{ p.valor }}</div>
+        <div class="param-desc">{{ p.desc }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MÉTRICAS + GRÁFICOS ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico"></span> Resultados por enfermedad</h2>
+    <div class="tabs-bar">
+      <button class="tab-btn" [class.active]="tabActivo === 'diabetes'"
+        (click)="tabActivo = 'diabetes'">🩸 Diabetes</button>
+      <button class="tab-btn" [class.active]="tabActivo === 'cardiovascular'"
+        (click)="tabActivo = 'cardiovascular'">❤️ Cardiovascular</button>
+    </div>
+
+    <!-- Métricas numéricas -->
+    <div class="metricas-grid">
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.accuracy }}</div>
+        <div class="metrica-label">Accuracy</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.precision }}</div>
+        <div class="metrica-label">Precision</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.recall }}</div>
+        <div class="metrica-label">Recall</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.f1 }}</div>
+        <div class="metrica-label">F1-Score</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-valor">{{ metricasActivas.auc }}</div>
+        <div class="metrica-label">AUC-ROC</div>
+        <div class="metrica-enfermedad">{{ tabActivo }}</div>
+      </div>
+    </div>
+    
+
+    <!-- Gráfico evaluación -->
+    <div class="grafico-wrap" style="margin-bottom: 20px;">
+      <img
+        [src]="tabActivo === 'diabetes'
+          ? 'assets/graficos/fig_evaluacion_diabetes.png'
+          : 'assets/graficos/fig_evaluacion_cardiovascular.png'"
+        [alt]="'Evaluación de modelos — ' + tabActivo"/>
+      <div class="grafico-caption">
+        Evaluación completa — incluye comparación de métricas, matrices de confusión RF y XGBoost,
+        curvas ROC e importancia de variables para el dataset de {{ tabActivo }}.
+      </div>
+    </div>
+
+    <!-- Importancia de variables -->
+    <h3 class="subseccion-titulo">🔍 Importancia de variables (Random Forest)</h3>
+    <div class="importancia-lista">
+      <div class="imp-item" *ngFor="let imp of importanciasActivas">
+        <span class="imp-nombre">{{ imp.nombre }}</span>
+        <div class="imp-barra-wrap">
+          <div class="imp-barra" [style.width.%]="imp.valor * 100"></div>
+        </div>
+        <span class="imp-valor">{{ (imp.valor * 100).toFixed(1) }}%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EDA ══ -->
+  <div class="seccion">
+    <h2 class="seccion-titulo"><span class="ico">🔬</span> Análisis exploratorio de datos (EDA)</h2>
+    <div class="tabs-bar">
+      <button class="tab-btn" [class.active]="tabActivo === 'diabetes'"
+        (click)="tabActivo = 'diabetes'">🩸 Diabetes</button>
+      <button class="tab-btn" [class.active]="tabActivo === 'cardiovascular'"
+        (click)="tabActivo = 'cardiovascular'">❤️ Cardiovascular</button>
+    </div>
+    <div class="grafico-wrap" style="margin-bottom:16px;">
+      <img
+        [src]="tabActivo === 'diabetes'
+          ? 'assets/graficos/fig_eda_diabetes.png'
+          : 'assets/graficos/fig_eda_cardiovascular.png'"
+        [alt]="'EDA ' + tabActivo"/>
+      <div class="grafico-caption">Distribuciones, variables objetivo y relaciones entre variables — dataset {{ tabActivo }}.</div>
+    </div>
+    <div class="grafico-wrap">
+      <img
+        [src]="tabActivo === 'diabetes'
+          ? 'assets/graficos/fig_correlacion_diabetes.png'
+          : 'assets/graficos/fig_correlacion_cardio.png'"
+        [alt]="'Correlación ' + tabActivo"/>
+      <div class="grafico-caption">Mapa de correlación entre variables — dataset {{ tabActivo }}.</div>
+    </div>
+  </div>
+</div>

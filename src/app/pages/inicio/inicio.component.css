@@ -1,0 +1,122 @@
+/* ── Fuentes ──────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+.page { font-family: 'Inter', sans-serif; color: #1a2332; }
+
+/* ── Utilidades ────────────────────────────────────────────────── */
+.section-inner       { max-width: 1280px; margin: 0 auto; padding: 5rem 1.5rem; }
+.section-inner--narrow { max-width: 52rem; }
+.section-header      { text-align: center; margin-bottom: 3rem; }
+.section-header h2   { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; margin-bottom: 0.75rem; }
+.section-header p    { color: #6b7a8d; font-size: 0.9rem; line-height: 1.6; max-width: 40rem; margin: 0 auto; }
+.section-header--light h2 { color: #fff; }
+.section-header--light p  { color: #bfdbfe; }
+
+.badge { display: inline-block; padding: 0.25rem 1rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+.badge--light  { background: rgba(46,134,171,0.25); color: #7dd3f0; }
+.badge--accent { background: rgba(46,134,171,0.35); color: #7dd3f0; }
+
+.btn { padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+.btn--primary { background: #2e86ab; color: #fff; }
+.btn--primary:hover { opacity: 0.9; }
+.btn--outline { border: 1px solid #93c5fd; color: #bfdbfe; }
+.btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.hero {
+  position: relative; overflow: hidden; min-height: 100vh;
+  background: linear-gradient(135deg, #1b4f72 0%, #154360 40%, #0e2d45 100%);
+  display: flex; align-items: center;
+}
+.hero__decor-top    { position: absolute; top:-80px; right:-80px; width:24rem; height:24rem; border-radius:50%; background:#2e86ab; opacity:.10; }
+.hero__decor-bottom { position: absolute; bottom:-60px; left:-60px; width:16rem; height:16rem; border-radius:50%; background:#f39c12; opacity:.10; }
+.hero__inner {
+  position: relative; max-width: 1280px; margin: 0 auto; padding: 5rem 1.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.hero__title { font-family: 'Playfair Display', serif; color: #fff; font-size: clamp(2rem,5vw,3.5rem); line-height: 1.2; margin-bottom: 1.5rem; }
+.hero__title--accent { color: #7dd3f0; }
+.hero__desc { color: #bfdbfe; line-height: 1.7; margin-bottom: 2rem; max-width: 36rem; }
+.hero__desc strong { color: #fff; }
+.hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero__image-wrap { position: relative; }
+.hero__glow { position: absolute; inset: 0; border-radius: 1.5rem; background: radial-gradient(circle,#2e86ab 0%,transparent 70%); opacity: .30; }
+.hero__img { position: relative; width: 100%; height: 28rem; object-fit: cover; border-radius: 1.5rem; box-shadow: 0 25px 60px rgba(0,0,0,.4); }
+.badge-float { position: absolute; background: #fff; border-radius: .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: .5rem 1rem; font-size: .875rem; font-weight: 600; color: #1a2332; }
+.badge-float--bottom { bottom: -1rem; left: -1rem; }
+.badge-float--top    { top: -1rem; right: -1rem; }
+
+/* ── Estadísticas ────────────────────────────────────────────────── */
+.stats { background: #f7f5f0; }
+.stats__grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 1rem; }
+.stat-card { background: #fff; border-radius: 1rem; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 1px solid rgba(27,79,114,.10); }
+.stat-card__value { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: .5rem; }
+.stat-card__label { color: #6b7a8d; font-size: .8rem; line-height: 1.4; }
+
+/* ── Enfermedades ────────────────────────────────────────────────── */
+.disease .section-inner { padding-top: 5rem; padding-bottom: 5rem; }
+.disease__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.disease__grid--flipped > *:first-child { order: 2; }
+
+.disease__subtitle { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+.disease__subtitle span { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.disease__icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.disease__title { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; margin-bottom: 1rem; line-height: 1.3; }
+.disease__desc  { color: #6b7a8d; line-height: 1.7; margin-bottom: 2rem; font-size: .95rem; }
+
+.tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tabs__btn { padding: .4rem 1rem; border-radius: 9999px; border: none; font-size: .8rem; font-weight: 500; cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif; }
+
+.disease__list { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+.disease__list-item { display: flex; align-items: flex-start; gap: .75rem; }
+.disease__dot { width: .5rem; height: .5rem; border-radius: 50%; margin-top: .4rem; flex-shrink: 0; }
+.disease__list-item span { font-size: .875rem; color: #1a2332; line-height: 1.6; }
+
+.disease__image-wrap { position: relative; }
+.disease__glow { position: absolute; inset: -1rem; border-radius: 1.5rem; opacity: .15; }
+.disease__img  { position: relative; width: 100%; height: 22rem; object-fit: cover; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+
+/* ── Prevención ──────────────────────────────────────────────────── */
+.prevention { background: #1b4f72; }
+.prevention__grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+.tip-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); border-radius: 1rem; padding: 1.5rem; transition: background .2s; }
+.tip-card:hover { background: rgba(255,255,255,.10); }
+.tip-card__icon { width: 3rem; height: 3rem; border-radius: .75rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
+.tip-card h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: .5rem; }
+.tip-card p  { color: #bfdbfe; font-size: .85rem; line-height: 1.6; }
+
+/* ── Relaciones ──────────────────────────────────────────────────── */
+.relation { background: #f7f5f0; }
+.relation__grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+.rel-card { background: #fff; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 1px solid rgba(27,79,114,.10); }
+.rel-card__badges { display: flex; align-items: center; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.rel-badge { padding: .25rem .75rem; border-radius: 9999px; font-size: .75rem; font-weight: 600; color: #fff; }
+.rel-badge--dark { background: #1a2332 !important; }
+.rel-arrow { color: #6b7a8d; font-size: .85rem; }
+.rel-card p { color: #6b7a8d; font-size: .875rem; line-height: 1.6; }
+
+/* ── FAQ ─────────────────────────────────────────────────────────── */
+.faq { background: #eef4f8; }
+.faq__title { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; text-align: center; margin-bottom: 3rem; }
+.faq__list { display: flex; flex-direction: column; gap: .75rem; }
+.faq-item { background: #fff; border-radius: .75rem; overflow: hidden; border: 1px solid rgba(27,79,114,.10); box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+.faq-item__btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; background: none; border: none; cursor: pointer; text-align: left; font-size: .875rem; font-weight: 500; color: #1a2332; font-family: 'Inter', sans-serif; transition: background .2s; }
+.faq-item__btn:hover { background: #f0f7fb; }
+.faq-item__icon { flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #e8f4f8; color: #2e86ab; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.faq-item__answer { padding: 0 1.5rem 1.25rem; color: #6b7a8d; font-size: .875rem; line-height: 1.7; }
+
+/* ── CTA ─────────────────────────────────────────────────────────── */
+.cta { background: linear-gradient(135deg,#1b4f72,#0e2d45); }
+.cta__inner { text-align: center; }
+.cta__icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.cta__inner h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.75rem; margin-bottom: 1rem; }
+.cta__inner p  { color: #bfdbfe; font-size: .875rem; line-height: 1.7; margin-bottom: 2rem; }
+.cta__pill { display: inline-block; background: #2e86ab; color: #fff; padding: .75rem 1.5rem; border-radius: .75rem; font-size: .875rem; font-weight: 600; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__img   { height: 18rem; }
+  .disease__grid { grid-template-columns: 1fr; }
+  .disease__grid--flipped > *:first-child { order: unset; }
+}

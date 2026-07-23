@@ -1,0 +1,58 @@
+/* ── Acento XGBoost — Verde esmeralda ── */
+:host {
+  --accent:    #0f766e;
+  --accent-lt: #f0fdf9;
+  --accent-bd: #99f6e4;
+}
+
+/* Tabla diferencias */
+.diferencias-tabla {
+  border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+  font-size: 0.85rem;
+}
+.dif-fila {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.dif-fila:last-child { border-bottom: none; }
+.dif-fila span {
+  padding: 11px 16px;
+  border-right: 1px solid var(--border);
+  color: var(--navy);
+}
+.dif-fila span:last-child { border-right: none; }
+.dif-header {
+  background: var(--navy);
+}
+.dif-header span {
+  color: #fff; font-weight: 700; font-size: 0.78rem;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.dif-menor { color: #dc2626 !important; }
+.dif-mayor { color: #059669 !important; font-weight: 700; }
+.dif-fila:nth-child(even) span { background: var(--bg); }
+
+/* Ventajas */
+.ventajas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 14px;
+}
+.ventaja-card {
+  padding: 16px; background: var(--accent-lt);
+  border: 1px solid var(--accent-bd);
+  border-radius: 10px; text-align: center;
+}
+.ventaja-ico   { font-size: 1.8rem; margin-bottom: 8px; }
+.ventaja-card strong { display: block; font-size: 0.88rem; color: var(--navy); margin-bottom: 6px; }
+.ventaja-card p { font-size: 0.78rem; color: var(--slate); margin: 0; line-height: 1.5; }
+
+/* Recall destacado */
+.highlight-recall { border: 2px solid var(--accent) !important; }
+.highlight-recall .metrica-valor { color: var(--accent); }
+
+.subseccion-titulo {
+  font-size: 0.9rem; font-weight: 700; color: var(--navy);
+  margin: 20px 0 14px;
+}
