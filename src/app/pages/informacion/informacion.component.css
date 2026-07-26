@@ -1,0 +1,148 @@
+:host {
+  --azul-oscuro:     #0c2d4a;
+  --azul-oscuro-2:   #133a5e;
+  --verde-azulado:     #0d9488;
+  --verde-azulado-claro:  #ccfbf1;
+  --rojo:      #dc2626;
+  --rojo-claro:   #fee2e2;
+  --dorado:     #b45309;
+  --dorado-claro:  #fef3c7;
+  --borde:   #e2e8f0;
+  --borde-2: #cbd5e1;
+  --fondo:       #f8fafc;
+  --fondo-2:     #f1f5f9;
+  --gris:    #64748b;
+  --oscuro:     #0f172a;
+  --blanco:    #ffffff;
+}
+
+.insignia { display: inline-block; padding: 0.25rem 1rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+.insignia-clara  { background: rgba(46,134,171,0.25); color: #000000; }
+.insignia-acento { background: rgba(46,134,171,0.35); color: #7dd3f0; }
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.ad-hero {
+  position: relative; overflow: hidden; min-height: 100vh;
+  background: linear-gradient(135deg, #c2ddf0 0%, #154360 40%, #0e2d45 100%);
+  display: flex; align-items: center;
+}
+.ad-hero-decoracion-superior    { position: absolute; top:-80px; right:-80px; width:24rem; height:24rem; border-radius:50%; background:#2e86ab; opacity:.10; }
+.ad-hero-decoracion-inferior { position: absolute; bottom:-60px; left:-60px; width:16rem; height:16rem; border-radius:50%; background:#f39c12; opacity:.10; }
+.ad-hero-contenido {
+  position: relative; max-width: 1280px; margin: 0 auto; padding: 5rem 1.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.ad-hero-titulo { font-family: 'Playfair Display', serif; color: #fff; font-size: clamp(2rem,5vw,3.5rem); line-height: 1.2; margin-bottom: 1.5rem; }
+.ad-hero-titulo-acento { color: #7dd3f0; }
+.ad-hero-descripcion { color: #bfdbfe; line-height: 1.7; margin-bottom: 2rem; max-width: 36rem; }
+.ad-hero-descripcion strong { color: #fff; }
+.ad-hero-acciones { display: flex; gap: 1rem; flex-wrap: wrap; }
+.ad-hero-imagen-wrap { position: relative; }
+.ad-hero-resplandor { position: absolute; inset: 0; border-radius: 1.5rem; background: radial-gradient(circle,#2e86ab 0%,transparent 70%); opacity: .30; }
+.ad-hero-imagen { position: relative; width: 100%; height: 28rem; object-fit: cover; border-radius: 1.5rem; box-shadow: 0 25px 60px rgba(0,0,0,.4); }
+.insignia-flotante { position: absolute; background: #fff; border-radius: .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: .5rem 1rem; font-size: .875rem; font-weight: 600; color: #1a2332; }
+.insignia-flotante-abajo { bottom: -1rem; left: -1rem; }
+.insignia-flotante-arriba    { top: -1rem; right: -1rem; }
+
+
+
+
+/* ── Utilidades ────────────────────────────────────────────────── */
+.ad-interno       { max-width: 1280px; margin: 0 auto; padding: 5rem 1.5rem; }
+.ad-interno-angosto { max-width: 52rem; }
+.ad-seccion-encabezado      { text-align: center; margin-bottom: 3rem; }
+.ad-seccion-encabezado h2   { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; margin-bottom: 0.75rem; }
+.ad-seccion-encabezado p    { color: #6b7a8d; font-size: 0.9rem; line-height: 1.6; max-width: 40rem; margin: 0 auto; }
+.ad-encabezado-claro h2 { color: #fff; }
+.ad-encabezado-claro p  { color: #bfdbfe; }
+
+.insignia { display: inline-block; padding: 0.25rem 1rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+.insignia-clara  { background: rgba(46,134,171,0.25); color: #000000; }
+.insignia-acento { background: rgba(46,134,171,0.35); color: #7dd3f0; }
+
+.boton { padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+.boton-primario { background: #2e86ab; color: #fff; }
+.boton-primario:hover { opacity: 0.9; }
+.boton-contorno { border: 1px solid #93c5fd; color: #bfdbfe; }
+.boton-contorno:hover { background: rgba(255,255,255,0.1); }
+
+
+/* ── Estadísticas ────────────────────────────────────────────────── */
+.ad-estadisticas { background: #f7f5f0; }
+.ad-estadisticas-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 1rem; }
+.tarjeta-estadistica { background: #fff; border-radius: 1rem; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 1px solid rgba(27,79,114,.10); }
+.tarjeta-estadistica-valor { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: .5rem; }
+.tarjeta-estadistica-etiqueta { color: #6b7a8d; font-size: .8rem; line-height: 1.4; }
+
+/* ── Enfermedades ────────────────────────────────────────────────── */
+.ad-enfermedad .ad-interno { padding-top: 5rem; padding-bottom: 5rem; }
+.ad-enfermedad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.ad-enfermedad-grid-invertida > *:first-child { order: 2; }
+
+.ad-enfermedad-subtitulo { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+.ad-enfermedad-subtitulo span { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.ad-enfermedad-icono { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.ad-enfermedad-titulo { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; margin-bottom: 1rem; line-height: 1.3; }
+.ad-enfermedad-descripcion  { color: #6b7a8d; line-height: 1.7; margin-bottom: 2rem; font-size: .95rem; }
+
+.ad-pestanas { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.ad-pestana-boton { padding: .4rem 1rem; border-radius: 9999px; border: none; font-size: .8rem; font-weight: 500; cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif; }
+
+.ad-enfermedad-lista { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+.ad-enfermedad-lista-item { display: flex; align-items: flex-start; gap: .75rem; }
+.ad-enfermedad-punto { width: .5rem; height: .5rem; border-radius: 50%; margin-top: .4rem; flex-shrink: 0; }
+.ad-enfermedad-lista-item span { font-size: .875rem; color: #1a2332; line-height: 1.6; }
+
+.ad-enfermedad-imagen-wrap { position: relative; }
+.ad-enfermedad-resplandor { position: absolute; inset: -1rem; border-radius: 1.5rem; opacity: .15; }
+.ad-enfermedad-imagen  { position: relative; width: 100%; height: 22rem; object-fit: cover; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+
+/* ── Prevención ──────────────────────────────────────────────────── */
+.ad-prevencion { background: #1b4f72; }
+.ad-prevencion-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+.tarjeta-consejo { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); border-radius: 1rem; padding: 1.5rem; transition: background .2s; }
+.tarjeta-consejo:hover { background: rgba(255,255,255,.10); }
+.tarjeta-consejo-icono { width: 3rem; height: 3rem; border-radius: .75rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
+.tarjeta-consejo h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: .5rem; }
+.tarjeta-consejo p  { color: #bfdbfe; font-size: .85rem; line-height: 1.6; }
+
+/* ── Impacto / Complicaciones ───────────────────────────────────── */
+.ad-impacto { background: #f7f5f0; }
+.ad-impacto-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: center; }
+.ad-impacto-lista { display: flex; flex-direction: column; gap: 1.25rem; }
+.ad-impacto-item { display: flex; align-items: flex-start; gap: 1rem; background: #fff; border-radius: 1rem; padding: 1.1rem 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 1px solid rgba(27,79,114,.10); }
+.ad-impacto-icono { width: 2.75rem; height: 2.75rem; border-radius: .75rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.ad-impacto-texto { display: flex; flex-direction: column; gap: .3rem; }
+.ad-impacto-texto strong { font-size: .95rem; color: #1a2332; }
+.ad-impacto-texto span { font-size: .85rem; color: #6b7a8d; line-height: 1.6; }
+.ad-impacto-imagen-wrap { position: relative; }
+.ad-impacto-resplandor { position: absolute; inset: -1rem; border-radius: 1.5rem; background: radial-gradient(circle,#2e86ab 0%,transparent 70%); opacity: .18; }
+.ad-impacto-imagen { position: relative; width: 100%; height: 26rem; object-fit: cover; border-radius: 1.25rem; box-shadow: 0 20px 45px rgba(0,0,0,.18); }
+
+/* ── FAQ ─────────────────────────────────────────────────────────── */
+.ad-preguntas { background: #eef4f8; }
+.ad-preguntas-titulo { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a2332; text-align: center; margin-bottom: 3rem; }
+.ad-preguntas-lista { display: flex; flex-direction: column; gap: .75rem; }
+.pregunta-item { background: #fff; border-radius: .75rem; overflow: hidden; border: 1px solid rgba(27,79,114,.10); box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+.pregunta-boton { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; background: none; border: none; cursor: pointer; text-align: left; font-size: .875rem; font-weight: 500; color: #1a2332; font-family: 'Inter', sans-serif; transition: background .2s; }
+.pregunta-boton:hover { background: #f0f7fb; }
+.pregunta-icono { flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #e8f4f8; color: #2e86ab; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.pregunta-respuesta { padding: 0 1.5rem 1.25rem; color: #6b7a8d; font-size: .875rem; line-height: 1.7; }
+
+/* ── CTA ─────────────────────────────────────────────────────────── */
+.ad-llamado { background: linear-gradient(135deg,#1b4f72,#0e2d45); }
+.ad-llamado-contenido { text-align: center; }
+.ad-llamado-icono { font-size: 2.5rem; margin-bottom: 1rem; }
+.ad-llamado-contenido h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.75rem; margin-bottom: 1rem; }
+.ad-llamado-contenido p  { color: #bfdbfe; font-size: .875rem; line-height: 1.7; margin-bottom: 2rem; }
+.ad-llamado-pastilla { display: inline-block; background: #2e86ab; color: #fff; padding: .75rem 1.5rem; border-radius: .75rem; font-size: .875rem; font-weight: 600; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ad-hero-contenido { grid-template-columns: 1fr; }
+  .ad-hero-imagen   { height: 18rem; }
+  .ad-enfermedad-grid { grid-template-columns: 1fr; }
+  .ad-enfermedad-grid-invertida > *:first-child { order: unset; }
+  .ad-impacto-grid { grid-template-columns: 1fr; }
+  .ad-impacto-imagen { height: 18rem; }
+}

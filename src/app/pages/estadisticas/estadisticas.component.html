@@ -1,0 +1,154 @@
+<div class="es-wrap">
+
+  <!-- ══════════════════════════ ENCABEZADO ══════════════════════════ -->
+  <section class="es-encabezado">
+    <div class="es-interno">
+      <span class="es-etiqueta">Panel de datos</span>
+      <h1>Estadísticas del sistema</h1>
+      <p>Resumen de las evaluaciones registradas: tendencias, niveles de riesgo detectados y establecimientos recomendados.</p>
+
+      <div class="es-filtros">
+        <div class="es-filtro-grupo">
+          <label for="filtroTipo">Tipo de evaluación</label>
+          <select id="filtroTipo" (change)="onFiltroTipoChange($event)">
+            @for (t of tiposEvaluacion; track t.valor) {
+              <option [value]="t.valor">{{ t.etiqueta }}</option>
+            }
+          </select>
+        </div>
+        <div class="es-filtro-grupo">
+          <label for="filtroCanton">Cantón</label>
+          <select id="filtroCanton" (change)="onFiltroCantonChange($event)">
+            @for (c of cantones; track c) {
+              <option [value]="c">{{ c === 'todos' ? 'Todos' : c }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @if (cargando()) {
+    <div class="es-cargando">Cargando estadísticas…</div>
+  } @else if (error()) {
+    <div class="es-error">
+      <span>⚠️</span>
+      <p>{{ error() }}</p>
+    </div>
+  } @else {
+
+    <!-- ══════════════════════════ KPIs ══════════════════════════ -->
+    <section class="es-kpis-seccion">
+      <div class="es-interno">
+        <div class="es-kpis-grid">
+          <div class="es-kpi-tarjeta">
+            <span class="es-kpi-icono">📋</span>
+            <div class="es-kpi-valor">{{ totalEvaluaciones() }}</div>
+            <div class="es-kpi-etiqueta">Evaluaciones totales</div>
+          </div>
+          <div class="es-kpi-tarjeta">
+            <span class="es-kpi-icono">⚠️</span>
+            <div class="es-kpi-valor" style="color:#c0392b">{{ porcentajeConRiesgo() }}%</div>
+            <div class="es-kpi-etiqueta">Con riesgo detectado</div>
+          </div>
+          <div class="es-kpi-tarjeta">
+            <span class="es-kpi-icono">📅</span>
+            <div class="es-kpi-valor">{{ evaluacionesEsteMes() }}</div>
+            <div class="es-kpi-etiqueta">Evaluaciones este mes</div>
+          </div>
+          <div class="es-kpi-tarjeta">
+            <span class="es-kpi-icono">📍</span>
+            <div class="es-kpi-valor es-kpi-valor--texto">{{ cantonConMasEvaluaciones() }}</div>
+            <div class="es-kpi-etiqueta">Cantón con más casos</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ TENDENCIA MENSUAL ══════════════════════ -->
+    <section class="es-grafico-seccion">
+      <div class="es-interno">
+        <div class="es-grafico-tarjeta">
+          <h2>Evaluaciones por mes</h2>
+          <p class="es-grafico-desc">Comparación de la cantidad de evaluaciones de diabetes y cardiovasculares en los últimos 6 meses.</p>
+          <ngx-charts-line-chart
+            [results]="datosPorMes()"
+            [scheme]="esquemaPrincipal"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [autoScale]="true"
+            [roundDomains]="true"
+            [view]="[800, 320]"
+          ></ngx-charts-line-chart>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ RIESGO + ESTABLECIMIENTOS ══════════════════════ -->
+    <section class="es-grafico-seccion es-grafico-seccion--alt">
+      <div class="es-interno">
+        <div class="es-grafico-dos-columnas">
+          <div class="es-grafico-tarjeta">
+            <h2>Distribución de riesgo</h2>
+            <p class="es-grafico-desc">Clasifica cada evaluación en riesgo bajo, medio o alto según la probabilidad híbrida calculada por el modelo. Te ayuda a ver de un vistazo qué proporción de pacientes evaluados necesita seguimiento prioritario.</p>
+            <ngx-charts-pie-chart
+              [results]="datosPorRiesgo()"
+              [scheme]="esquemaRiesgo"
+              [labels]="true"
+              [doughnut]="true"
+              [view]="[800, 300]"
+            ></ngx-charts-pie-chart>
+          </div>
+          <div class="es-grafico-tarjeta">
+            <h2>Establecimientos más recomendados</h2>
+            <p class="es-grafico-desc">Los 5 centros de salud que el sistema sugirió con más frecuencia como primera opción de derivación, considerando el seguro y el cantón de residencia de cada paciente. Útil para detectar si la carga se está concentrando en muy pocos establecimientos.</p>
+            <ngx-charts-bar-horizontal
+              [results]="datosPorEstablecimiento()"
+              [scheme]="esquemaPrincipal"
+              [xAxis]="true"
+              [yAxis]="true"
+              [view]="[800, 300]"
+            ></ngx-charts-bar-horizontal>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ CANTÓN Y SEGURO ══════════════════════ -->
+    <section class="es-grafico-seccion">
+      <div class="es-interno">
+        <div class="es-grafico-tarjeta">
+          <h2>Evaluaciones por cantón y tipo de seguro</h2>
+          <p class="es-grafico-desc">Distribución de la cobertura de la Zona 8 según el seguro del paciente.</p>
+          <ngx-charts-bar-vertical-2d
+            [results]="datosPorCantonSeguro()"
+            [scheme]="esquemaPrincipal"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [groupPadding]="12"
+            [view]="[800, 340]"
+          ></ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ MODELO GANADOR ══════════════════════ -->
+    <section class="es-grafico-seccion es-grafico-seccion--alt">
+      <div class="es-interno">
+        <div class="es-grafico-tarjeta">
+          <h2>Modelo con mejor desempeño por evaluación</h2>
+          <p class="es-grafico-desc">Cuántas veces cada modelo (Random Forest, XGBoost o el híbrido) resultó ganador según el sistema.</p>
+          <ngx-charts-pie-chart
+            [results]="datosPorModeloGanador()"
+            [scheme]="esquemaPrincipal"
+            [labels]="true"
+            [view]="[800, 300]"
+          ></ngx-charts-pie-chart>
+        </div>
+      </div>
+    </section>
+
+  }
+</div>

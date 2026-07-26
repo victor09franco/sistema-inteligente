@@ -2,24 +2,26 @@ import { Routes } from '@angular/router';
 
 import { NavegacionComponent } from './barra-navegacion/navegacion/navegacion.component';
 
-import { InicioComponent } from './pages/inicio/inicio.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
-
 
 import { XgboostComponent } from './pages/xgboost/xgboost.component';
 import { ResulHibridoComponent } from './pages/resul-hibrido/resul-hibrido.component';
 import { RandonForestComponent } from './pages/randon-forest/randon-forest.component';
-import { AcercaDeComponent } from './pages/acerca-de/acerca-de.component';
+
 import { HistorialComponent } from './pages/historial/historial.component';
+import { HomeComponent } from './pages/home/home.component';
+import { InformacionComponent } from './pages/informacion/informacion.component';
+import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: NavegacionComponent,
     children: [
+      
       {
         path: 'inicio',
-        component: InicioComponent,
+        component: HomeComponent,
       },
       {
         path: 'formulario',
@@ -43,8 +45,12 @@ export const routes: Routes = [
         component: ResulHibridoComponent
       },
       {
-        path: 'acerca-de',
-        component: AcercaDeComponent
+        path: 'informacion',
+        component: InformacionComponent,
+      },
+      {
+        path: 'estadisticas',
+        component: EstadisticasComponent,
       },
       {
         path: '',

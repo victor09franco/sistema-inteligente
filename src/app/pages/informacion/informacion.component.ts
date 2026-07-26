@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
-import { NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
-  selector: 'app-inicio',
-  standalone: true,
-  imports: [],
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  selector: 'app-informacion',
+  imports: [CommonModule],
+  templateUrl: './informacion.component.html',
+  styleUrl: './informacion.component.css'
 })
-export class InicioComponent {
+export class InformacionComponent {
 
-  diabetesTab = signal(0);
+   diabetesTab = signal(0);
   cardiovascTab = signal(0);
   renalTab = signal(0);
 
@@ -19,6 +19,7 @@ export class InicioComponent {
   toggleFaq(i: number) {
     this.faqOpen.update(v => v === i ? null : i);
   }
+
 
   stats = [
     {
@@ -111,20 +112,31 @@ export class InicioComponent {
     }
   ];
 
-  relations = [
+  complicaciones = [
     {
-      from: 'Diabetes',
-      to: 'Cardiovascular',
-      color: '#e67e22',
-      text: 'La diabetes aumenta el riesgo cardiovascular.'
+      icono: '👁️',
+      titulo: 'Daño en la vista',
+      desc: 'La retinopatía diabética y la hipertensión no controlada afectan progresivamente la retina y pueden derivar en pérdida de visión.',
+      color: '#e67e22'
     },
     {
-      from: 'Cardiovascular',
-      to: 'Renal',
-      color: '#c0392b',
-      text: 'Las enfermedades cardiovasculares afectan la función renal.'
+      icono: '🫀',
+      titulo: 'Sobrecarga del corazón',
+      desc: 'La diabetes acelera la aterosclerosis, aumentando el riesgo de infarto, insuficiencia cardíaca y accidente cerebrovascular.',
+      color: '#c0392b'
     },
-   
+    {
+      icono: '🦵',
+      titulo: 'Neuropatía y pie diabético',
+      desc: 'La glucosa elevada daña los nervios periféricos, reduciendo la sensibilidad y favoreciendo heridas que cicatrizan con dificultad.',
+      color: '#2e86ab'
+    },
+    {
+      icono: '🫘',
+      titulo: 'Deterioro renal',
+      desc: 'La hipertensión y la diabetes son, en conjunto, la principal causa de enfermedad renal crónica a nivel mundial.',
+      color: '#8e44ad'
+    },
   ];
 
   faqs = [
@@ -157,4 +169,5 @@ export class InicioComponent {
     a: 'Es un exceso de grasa en la sangre que aumenta el riesgo de enfermedades del corazón.'
   }   
   ];
+
 }

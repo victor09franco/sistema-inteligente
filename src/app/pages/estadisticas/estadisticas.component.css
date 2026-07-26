@@ -1,0 +1,91 @@
+:host {
+  --azul-oscuro:   #0c2d4a;
+  --verde-azulado: #0d9488;
+  --borde:         #e2e8f0;
+  --fondo:         #f8fafc;
+  --gris:          #64748b;
+  --oscuro:        #0f172a;
+  --blanco:        #ffffff;
+  display: block;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.es-wrap { color: var(--oscuro); background: var(--blanco); }
+.es-interno { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* ── Encabezado ─────────────────────────────────────────────── */
+.es-encabezado {
+  background: linear-gradient(160deg, var(--azul-oscuro) 0%, #123f68 100%);
+  padding: 64px 0 48px;
+}
+.es-encabezado .es-interno { text-align: center; }
+.es-etiqueta {
+  display: inline-block; margin-bottom: 10px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #5eead4;
+}
+.es-encabezado h1 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 12px; }
+.es-encabezado p { color: rgba(255,255,255,.72); max-width: 560px; margin: 0 auto 32px; font-size: .95rem; line-height: 1.6; }
+
+.es-filtros { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.es-filtro-grupo { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.es-filtro-grupo label { font-size: .72rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+.es-filtro-grupo select {
+  padding: 9px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.08); color: #fff; font-size: .88rem; font-family: inherit;
+  min-width: 180px; cursor: pointer;
+}
+.es-filtro-grupo select option { color: #1a2332; }
+
+/* ── Carga ──────────────────────────────────────────────────── */
+.es-cargando { text-align: center; padding: 60px 20px; color: var(--gris); font-size: .95rem; }
+.es-error {
+  max-width: 520px; margin: 40px auto; text-align: center;
+  background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px;
+  padding: 24px; color: #991b1b;
+}
+.es-error span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+.es-error p { margin: 0; font-size: .9rem; line-height: 1.6; }
+
+/* ── KPIs ───────────────────────────────────────────────────── */
+.es-kpis-seccion { background: var(--fondo); padding: 40px 0; }
+.es-kpis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.es-kpi-tarjeta {
+  background: #fff; border: 1px solid var(--borde); border-radius: 14px;
+  padding: 22px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.es-kpi-icono { font-size: 1.5rem; }
+.es-kpi-valor { font-size: 2rem; font-weight: 700; color: var(--azul-oscuro); margin: 8px 0 4px; }
+.es-kpi-valor--texto { font-size: 1.25rem; }
+.es-kpi-etiqueta { font-size: .82rem; color: var(--gris); }
+
+/* ── Gráficos ───────────────────────────────────────────────── */
+.es-grafico-seccion { padding: 48px 0; }
+.es-grafico-seccion--alt { background: var(--fondo); }
+.es-grafico-tarjeta {
+  background: #fff; border: 1px solid var(--borde); border-radius: 16px;
+  padding: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  min-width: 0; /* evita que el hijo (ngx-charts) empuje el ancho del grid */
+  overflow: hidden;
+}
+.es-grafico-tarjeta h2 { font-size: 1.15rem; margin: 0 0 6px; color: var(--oscuro); }
+.es-grafico-desc { font-size: .85rem; color: var(--gris); margin: 0 0 20px; line-height: 1.6; }
+
+.es-grafico-tarjeta ngx-charts-line-chart,
+.es-grafico-tarjeta ngx-charts-pie-chart,
+.es-grafico-tarjeta ngx-charts-bar-horizontal,
+.es-grafico-tarjeta ngx-charts-bar-vertical-2d {
+  display: block;
+  width: 100%;
+}
+
+.es-grafico-dos-columnas { display: flex; flex-direction: column; gap: 24px; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .es-filtros { flex-direction: column; align-items: center; }
+}
+@media (max-width: 640px) {
+  .es-interno { padding: 0 18px; }
+  .es-encabezado { padding: 48px 0 36px; }
+}

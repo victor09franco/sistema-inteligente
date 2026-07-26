@@ -1,17 +1,31 @@
 <div class="contenedor">
 
+  <!-- Botón para abrir/cerrar el menú (solo visible en móvil) -->
+  <button
+    class="boton-menu"
+    type="button"
+    (click)="alternarMenu()"
+    [attr.aria-expanded]="menuAbierto()"
+    [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+  >
+    <i class="fas" [ngClass]="menuAbierto() ? 'fa-xmark' : 'fa-bars'"></i>
+  </button>
+
+  <!-- Fondo oscuro detrás del menú, para poder cerrarlo tocando fuera -->
+  <div class="overlay" [class.visible]="menuAbierto()" (click)="cerrarMenu()"></div>
+
   <!-- Menú izquierdo -->
-  <div class="sidebar">
+  <div class="sidebar" [class.abierto]="menuAbierto()">
 
     <div class="sidebar-scroll">
 
       <div class="logo-section">
         <div class="logo-icon">
-          <img src="https://www.ug.edu.ec/wp-content/uploads/2024/06/logo-vertical.png"
-               alt="Universidad de Guayaquil" />
+          <img src="https://fundaciondelcorazon.com/images/prevencion/Marcadores_de_riesgo.jpg"
+               alt="riesgo" />
         </div>
 
-        <h2>Salud Crónica</h2>
+        <h2>Enfermedades Crónica</h2>
 
         <p>Sistema Inteligente</p>
 
@@ -19,40 +33,43 @@
       </div>
 
       <nav class="menu-links">
-        <a routerLink="/inicio" routerLinkActive="active">
+        
+
+        <a routerLink="/inicio" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-home"></i>
           <span>Inicio</span>
         </a>
 
-        <a routerLink="/formulario" routerLinkActive="active">
+        <a routerLink="/formulario" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-file-medical"></i>
-          <span>Formulario</span>
+          <span>Evaluación y Recomendación</span>
         </a>
 
-        <a routerLink="/historial" routerLinkActive="active">
+        <a routerLink="/historial" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-clock-rotate-left"></i>
           <span>Historial</span>
         </a>
 
-        <a routerLink="/random-forest" routerLinkActive="active">
+        <a routerLink="/random-forest" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-brain"></i>
           <span>Random Forest</span>
         </a>
 
-        <a routerLink="/xgboost" routerLinkActive="active">
+        <a routerLink="/xgboost" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-microchip"></i>
           <span>XGBoost</span>
         </a>
 
-        <a routerLink="/resul-hibrido" routerLinkActive="active">
+        <a routerLink="/resul-hibrido" routerLinkActive="active" (click)="cerrarMenu()">
           <i class="fas fa-stethoscope"></i>
           <span>Resultado Híbrido</span>
+        </a> 
+
+        <a routerLink="/informacion" routerLinkActive="active" (click)="cerrarMenu()">
+          <i class="fas fa-circle-info"></i>
+          <span>Información</span>
         </a>
 
-        <a routerLink="/acerca-de" routerLinkActive="active">
-          <i class="fas fa-circle-info"></i>
-          <span>Acerca de</span>
-        </a>
       </nav>
 
     </div>

@@ -1,0 +1,275 @@
+<div class="page">
+  <section class="encabezado-academico">
+  <div class="encabezado-cuadricula-fondo"></div>
+  <div class="encabezado-contenido">
+    <div class="proyecto-tipo">
+      Proyecto de Integración Curricular
+    </div>
+    <h1 class="hero-titulo-proyecto">
+      {{ ficha.titulo }}
+    </h1>
+    <div class="palabras-clave">
+      <span class="pk-tag" *ngFor="let p of palabrasClave">
+        {{ p }}
+      </span>
+    </div>
+    
+    <!-- Tutor -->
+    <div class="tutor-linea">
+      <span class="tutor-label">
+        Investigación dirigida por
+      </span>
+      <strong class="tutor-nombre">
+        {{ ficha.tutor }}
+      </strong>
+    </div>
+
+    <div class="investigadores-linea">
+      Investigadores
+    </div>
+
+    <!-- Autores -->
+    <div class="autores-fila">
+      <div class="autor-pill" *ngFor="let ing of integrantes">
+        <span class="autor-avatar">
+          {{ ing.nombre.split(' ')[0][0] }}{{ ing.nombre.split(' ')[1][0] }}
+        </span>
+        <div>
+          <strong>{{ ing.nombre }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ══════════════════════════════════════════════
+       BENEFICIOS
+  ══════════════════════════════════════════════ -->
+  <section class="ac-seccion ac-seccion-alterna">
+    <div class="ac-interno">
+      <div class="ac-seccion-header">
+        <div class="ac-seccion-label">¿Para qué sirve?</div>
+        <h2>Una herramienta al servicio del personal de salud</h2>
+        <p>Diseñada para médicos, enfermeros y promotores que necesitan evaluaciones rápidas, precisas y fundamentadas en datos clínicos reales.</p>
+      </div>
+      <div class="ac-beneficios-grid">
+        <div class="ac-beneficio-card" *ngFor="let b of beneficios">
+          <div class="ac-beneficio-icono-contenedor">
+            <span>{{ b.ico }}</span>
+          </div>
+          <h3>{{ b.titulo }}</h3>
+          <p>{{ b.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       SEÑALES DE ALERTA CLÍNICA — nueva sección
+  ══════════════════════════════════════════════ -->
+  <section class="ac-seccion">
+    <div class="ac-interno">
+      <div class="ac-seccion-header">
+        <div class="ac-seccion-label">Alfabetización sanitaria</div>
+        <h2>Señales de alerta que no se deben ignorar</h2>
+        <p>Reconocer los síntomas y factores de riesgo a tiempo permite una intervención clínica antes de que las enfermedades avancen a etapas severas.</p>
+      </div>
+
+      <!-- Tabs de patología -->
+      <div class="ac-alerta-tabs">
+        <button class="ac-alerta-tab"
+          *ngFor="let a of alertas; let i = index"
+          [class.activo]="tabAlertaActiva === i"
+          [style.--tab-color]="a.color"
+          (click)="tabAlertaActiva = i">
+          {{ a.ico }} {{ a.categoria }}
+        </button>
+      </div>
+
+      <!-- Contenido del tab activo -->
+      <div class="ac-alerta-contenido" *ngFor="let a of alertas; let i = index" [style.display]="tabAlertaActiva === i ? 'block' : 'none'">
+
+        <div class="ac-alerta-grid">
+
+          <!-- Columna señales -->
+          <div class="ac-alerta-col">
+            <div class="ac-alerta-col-titulo" [style.color]="a.color">
+              🔍 Señales de alerta
+            </div>
+            <p class="ac-alerta-intro">{{ a.intro }}</p>
+            <div class="ac-senal-lista">
+              <div class="ac-senal-item" *ngFor="let s of a.senales">
+                <div class="ac-senal-dot" [style.background]="a.color"></div>
+                <div class="ac-senal-texto">
+                  <strong>{{ s.titulo }}</strong>
+                  <span>{{ s.desc }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna factores + umbral -->
+          <div class="ac-alerta-col">
+            <div class="ac-alerta-col-titulo" [style.color]="a.color">
+              ⚠️ Factores de riesgo
+            </div>
+            <div class="ac-factores-lista">
+              <div class="ac-factor-tag"
+                *ngFor="let f of a.factores"
+                [style.background]="a.colorBg"
+                [style.borderColor]="a.colorBorder"
+                [style.color]="a.color">
+                {{ f }}
+              </div>
+            </div>
+
+            <div class="ac-umbral-box" [style.borderColor]="a.colorBorder" [style.background]="a.colorBg">
+              <div class="ac-umbral-label" [style.color]="a.color">
+                📊 Criterio clínico de referencia
+              </div>
+              <p [style.color]="a.color">{{ a.umbral }}</p>
+            </div>
+
+            <div class="ac-alerta-imagen">
+              <img
+                [src]="i === 0
+                  ? 'https://aprende.com/wp-content/uploads/2021/01/factores-de-riesgo-de-la-diabetes.jpg'
+                  : 'https://www.revistadiabetes.org/wp-content/uploads/Riesgo-cardiovascular-en-personas-con-diabetes-tipo-1_1.jpg'"
+                [alt]="a.categoria"
+              />
+              <div class="ac-alerta-imagen-capa" [style.background]="a.color + '33'"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       CÓMO USAR — 4 pasos
+  ══════════════════════════════════════════════ -->
+  <section class="ac-seccion ac-seccion-oscura">
+    <div class="ac-interno">
+      <div class="ac-seccion-header ac-encabezado-oscuro">
+        <div class="ac-seccion-label ac-etiqueta-clara">Guía rápida</div>
+        <h2>Cómo usar el sistema en 4 pasos</h2>
+        <p>El proceso completo desde el ingreso de datos hasta la recomendación tarda menos de un minuto.</p>
+      </div>
+
+      <div class="ac-pasos-grid">
+        <div class="ac-paso-card" *ngFor="let p of pasos">
+          <div class="ac-paso-imagen-contenedor">
+            <img [src]="p.img" [alt]="p.alt"/>
+            <div class="ac-paso-numero-insignia">{{ p.num }}</div>
+          </div>
+          <div class="ac-paso-texto">
+            <h3>{{ p.titulo }}</h3>
+            <p>{{ p.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       COBERTURA — Zona 8
+  ══════════════════════════════════════════════ -->
+  <section class="ac-seccion ac-seccion-alterna">
+    <div class="ac-interno">
+      <div class="ac-seccion-header">
+        <div class="ac-seccion-label">Cobertura geográfica</div>
+        <h2>Zona 8 del Ecuador — 60 establecimientos</h2>
+        <p>Catálogo unificado integrando GeoSalud MSP, INEC y hospitales privados en los tres cantones.</p>
+      </div>
+
+      <div class="ac-cobertura-layout">
+
+        <div class="ac-cobertura-izq">
+          <div class="ac-canton-cards">
+            <div class="ac-canton-card" *ngFor="let c of cantones">
+              <div class="ac-canton-num">{{ c.hospitales }}</div>
+              <div>
+                <strong>{{ c.nombre }}</strong>
+                <span>{{ c.desc }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ac-seguros-bloque">
+            <div class="ac-seguros-titulo">Seguros compatibles</div>
+            <div class="ac-seguros-grid">
+              <div class="ac-seguro-pill" *ngFor="let s of seguros" [style.borderColor]="s.color + '55'">
+                <span class="ac-seguro-dot" [style.background]="s.color"></span>
+                <div>
+                  <strong [style.color]="s.color">{{ s.tipo }}</strong>
+                  <span>{{ s.desc }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ac-cobertura-der">
+          <div class="ac-mapa-tarjeta">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsIyzHcjGTI3k9P7YB02bYXayZN3LsUgmpoj9njmk3Ew&s=10"
+              alt="Centro de salud en Ecuador"
+            />
+            <div class="ac-mapa-footer">
+              <strong>Zona 8 · Provincia del Guayas</strong>
+              <span>Guayaquil · Durán · Samborondón</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       FAQ
+  ══════════════════════════════════════════════ -->
+  <section class="ac-seccion">
+    <div class="ac-interno ac-interno-angosto">
+      <div class="ac-seccion-header">
+        <div class="ac-seccion-label">Preguntas frecuentes</div>
+        <h2>Todo lo que necesitas saber</h2>
+        <p>Respuestas claras sobre el funcionamiento del sistema y la interpretación de resultados.</p>
+      </div>
+      <div class="ac-pregunta-lista">
+        <div class="ac-pregunta-item" *ngFor="let f of faqs; let i = index">
+          <button class="ac-pregunta-boton" (click)="toggleFaq(i)">
+            <span>{{ f.q }}</span>
+            <span class="ac-pregunta-icono" [class.abierto]="faqAbierto === i">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </span>
+          </button>
+          <div class="ac-pregunta-respuesta" *ngIf="faqAbierto === i">{{ f.a }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       CTA FINAL
+  ══════════════════════════════════════════════ -->
+  <section class="ac-llamado-seccion">
+    <div class="ac-llamado-contenido">
+      <img
+        src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1200&h=380&fit=crop&auto=format"
+        alt="Médico atendiendo paciente" class="ac-llamado-imagen-fondo"
+      />
+      <div class="ac-llamado-capa"></div>
+      <div class="ac-llamado-texto">
+        <span class="ac-llamado-etiqueta">Sistema Salud Crónica</span>
+        <h2>¿Listo para realizar una evaluación?</h2>
+        <p>Acceda al formulario clínico para evaluar el riesgo de su paciente y obtener la recomendación de derivación más adecuada para su perfil sociosanitario.</p>
+        <div class="ac-llamado-pastilla">🛡️ Herramienta de apoyo clínico. No reemplaza el criterio médico profesional.</div>
+      </div>
+    </div>
+  </section>
+</div>
