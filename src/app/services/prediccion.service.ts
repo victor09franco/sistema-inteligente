@@ -69,8 +69,8 @@ export interface EvaluacionEstadistica {
 @Injectable({ providedIn: 'root' })
 export class PrediccionService {
 
-  private API = 'http://localhost:8000/api/v1';
-  //private API = 'https://backend-tesis-fastapi.onrender.com/api/v1';
+  //private API = 'http://localhost:8000/api/v1';
+  private API = 'https://backend-tesis-fastapi.onrender.com/api/v1';
 
   constructor(private http: HttpClient) {}
 
