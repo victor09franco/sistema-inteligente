@@ -164,7 +164,7 @@
 
 .contenido{
   flex: 1;
-  padding: 0 20px 20px 20px;
+  /* padding: 0 20px 20px 20px; */
   background: #f5f5f5;
   overflow-y: auto;
   height: 100vh;
@@ -216,6 +216,19 @@
     display: flex;
   }
 
+  .boton-menu.oculto{
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+  
+  .icono-menu{
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
   .sidebar{
     position: fixed;
     top: 0;
@@ -228,12 +241,14 @@
     box-shadow: 4px 0 24px rgba(0,0,0,0.35);
   }
 
+
+
   .sidebar.abierto{
     transform: translateX(0);
   }
 
   .contenido{
-    padding-top: 76px; /* deja espacio para que el botón no tape el contenido */
+    /*padding-top: 76px;  deja espacio para que el botón no tape el contenido */
     width: 100%;
   }
 }  

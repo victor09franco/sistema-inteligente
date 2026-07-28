@@ -41,11 +41,16 @@
           <div class="tarjeta-estadistica">
             <div class="tarjeta-estadistica-valor" [style.color]="stat.color">{{ stat.value }}</div>
             <p class="tarjeta-estadistica-etiqueta">{{ stat.label }}</p>
+            <img
+            [src]="stat.image"
+            [alt]="stat.label"
+            class="ad-enfermedad-imagen">
+
           </div>
         }
       </div>
     </div>
-  </section>
+  </section>   
 
   <!-- ══════════════════════════ DIABETES ══════════════════════ -->
   <section id="diabetes" class="ad-enfermedad" style="background:#fffbf5">

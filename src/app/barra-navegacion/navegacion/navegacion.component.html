@@ -2,15 +2,22 @@
 
   <!-- Botón para abrir/cerrar el menú (solo visible en móvil) -->
   <button
-    class="boton-menu"
-    type="button"
-    (click)="alternarMenu()"
-    [attr.aria-expanded]="menuAbierto()"
-    [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
-  >
-    <i class="fas" [ngClass]="menuAbierto() ? 'fa-xmark' : 'fa-bars'"></i>
-  </button>
-
+  class="boton-menu"
+  [class.oculto]="menuAbierto()"
+  type="button"
+  (click)="alternarMenu()"
+  [attr.aria-expanded]="menuAbierto()"
+  [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+>
+ <img
+    *ngIf="!menuAbierto()"
+    src="assets/menu.png"
+    alt="Menú"
+    class="icono-menu"
+  />
+  
+</button>
+  
   <!-- Fondo oscuro detrás del menú, para poder cerrarlo tocando fuera -->
   <div class="overlay" [class.visible]="menuAbierto()" (click)="cerrarMenu()"></div>
 

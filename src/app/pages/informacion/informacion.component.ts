@@ -25,12 +25,16 @@ export class InformacionComponent {
     {
       value: 'Más de 830 millones de personas',
       label: 'viven con diabetes, una enfermedad cuya prevalencia ha aumentado de forma acelerada en las últimas décadas.',
-      color: '#e67e22'
+      color: '#e67e22',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRqiFWUy-jwKOogv3GVuWfU0rX6WxmuCZtDPLq66NEMQ&s'
+      
     },
     {
       value: '17,9 millones de personas',
       label: 'fallecen anualmente por enfermedades cardiovasculares, convirtiéndolas en la principal causa de muerte en el mundo.',
-      color: '#c0392b'
+      color: '#c0392b',
+      image: 'https://cardiavant.com/wp-content/uploads/mayores-de-60.jpg'
+
     }
   ];
 

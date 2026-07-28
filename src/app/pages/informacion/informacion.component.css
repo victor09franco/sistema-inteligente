@@ -22,10 +22,13 @@
 
 /* ── Hero ───────────────────────────────────────────────────────── */
 .ad-hero {
-  position: relative; overflow: hidden; min-height: 100vh;
+  position: relative;
+   overflow: hidden; 
+   min-height: 100vh;
   background: linear-gradient(135deg, #c2ddf0 0%, #154360 40%, #0e2d45 100%);
   display: flex; align-items: center;
 }
+
 .ad-hero-decoracion-superior    { position: absolute; top:-80px; right:-80px; width:24rem; height:24rem; border-radius:50%; background:#2e86ab; opacity:.10; }
 .ad-hero-decoracion-inferior { position: absolute; bottom:-60px; left:-60px; width:16rem; height:16rem; border-radius:50%; background:#f39c12; opacity:.10; }
 .ad-hero-contenido {
@@ -72,7 +75,13 @@
 .ad-estadisticas-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 1rem; }
 .tarjeta-estadistica { background: #fff; border-radius: 1rem; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 1px solid rgba(27,79,114,.10); }
 .tarjeta-estadistica-valor { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; margin-bottom: .5rem; }
-.tarjeta-estadistica-etiqueta { color: #6b7a8d; font-size: .8rem; line-height: 1.4; }
+.tarjeta-estadistica-etiqueta { color: #6b7a8d; font-size: 1rem; line-height: 1.4; }
+
+
+
+.estadistica-imagen:hover {
+    transform: scale(1.08);
+}
 
 /* ── Enfermedades ────────────────────────────────────────────────── */
 .ad-enfermedad .ad-interno { padding-top: 5rem; padding-bottom: 5rem; }
